@@ -1,0 +1,256 @@
+{
+    "servant": {
+        "property": {
+            "id": 2,
+            "name": {
+                "jp": "アルトリア・ペンドラゴン",
+                "ch": "阿爾托莉亞・潘德拉剛",
+                "en": "Artoria Pendragon"
+            },
+            "class": {
+                "type": "saber",
+                "jp": "セイバー",
+                "ch": "Saber",
+                "en": "Saber"
+            },
+            "rare": 5,
+            "cost": 16,
+            "hp": {
+                "lv-1": 2222,
+                "lv-90": 15150,
+                "lv-100": 16597
+            },
+            "atk": {
+                "lv-1": 1734,
+                "lv-90": 11221,
+                "lv-100": 12283
+            },
+            "attr": {
+                "type": "earth",
+                "jp": "地",
+                "ch": "地",
+                "en": "Earth"
+            },
+            "alignment": {
+                "type": "lawful,good",
+                "jp": "秩序・善",
+                "ch": "秩序・善",
+                "en": "Lawful, Good"
+            },
+            "gender": {
+                "type": "female",
+                "jp": "女",
+                "ch": "女性",
+                "en": "Female"
+            },
+            "traits": {
+                "type": "Artoria,Dragon,Earth or Sky,Female,Humanoid,King,Riding,Saberface,Servant,Weak to Enuma Elish",
+                "jp": "サーヴァント / 騎乗スキル / 人型 / 竜 / アルトリア顔 / セイバークラスのサーヴァント / アーサー / 王",
+                "ch": "從者, 騎乘,人型,龍,阿爾托莉亞臉,被「天地乖離開辟之星」所剋,被「人類神話・雷電降臨」所剋,被「神秘殺し」所剋,亞瑟,王",
+                "en": "Artoria, Dragon, Earth or Sky, Female, Humanoid, King, Riding, Saberface, Servant, Weak to Enuma Elish"
+            },
+            "star-abs": 102,
+            "star-gen": 0.1,
+            "np-charge-atk": 0.86,
+            "np-charge-def": 3.00,
+            "death-rate": 0.21,
+            "buster": {
+                "hits": 1,
+                "np-rate": 0.86
+            },
+            "arts": {
+                "hits": 2,
+                "np-rate": 0.86
+            },
+            "quick": {
+                "hits": 2,
+                "np-rate": 0.86
+            },
+            "ex": {
+                "hits": 3,
+                "np-rate": 0.86
+            },
+            "np": {
+                "hits": 1,
+                "np-rate": 0.86
+            }
+        },
+        "p-skill": {
+            "skill": [
+            {
+                "name": {
+                "jp": "対魔力 A",
+                "ch": "対魔力 A",
+                "en": "Magic Resistance A"
+                },
+                "ico": "",
+                "description": {
+                    "jp": "自身の弱体耐性をアップ",
+                    "ch": "自身的弱體耐性提升：20%",
+                    "en": "Increases own debuff resistance by 20%."
+                },
+                "effect": ""
+            },
+            {
+                "name": {
+                    "jp": "騎乗 B",
+                    "ch": "騎乗 B",
+                    "en": "Riding B"
+                },
+                "ico": "",
+                "description": {
+                    "jp": "自身のQuickカードの性能をアップ",
+                    "ch": "自身的Quick卡性能提升：8%",
+                    "en": "Increases own Quick performance by 8%."
+                },
+                "effect": {
+                    "mode": "self",
+                    "quick": 0.08
+                }
+            }
+            ]
+        },
+        "a-skill": {
+            "skill": [
+            {
+                "original": {
+                    "name": { 
+                        "jp": "カリスマ B",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "味方全体の攻撃力をアップ[Lv](3T)",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": "7",
+                    "effect": {
+                        "lv-1": {"mode":"allies","atk":0.09},
+                        "lv-2": {"mode":"allies","atk":0.099},
+                        "lv-3": {"mode":"allies","atk":0.108},
+                        "lv-4": {"mode":"allies","atk":0.117},
+                        "lv-5": {"mode":"allies","atk":0.126},
+                        "lv-6": {"mode":"allies","atk":0.135},
+                        "lv-7": {"mode":"allies","atk":0.144},
+                        "lv-8": {"mode":"allies","atk":0.153},
+                        "lv-9": {"mode":"allies","atk":0.162},
+                        "lv-10": {"mode":"allies","atk":0.18}
+                    }
+                }
+            },
+            {
+                "original": {
+                    "name": { 
+                        "jp": "魔力放出 A",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "自身のBusterカード性能をアップ[Lv](1T)",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": "7",
+                    "effect": {
+                        "lv-1": {"mode":"self","atk":0.30},
+                        "lv-2": {"mode":"self","atk":0.32},
+                        "lv-3": {"mode":"self","atk":0.34},
+                        "lv-4": {"mode":"self","atk":0.36},
+                        "lv-5": {"mode":"self","atk":0.38},
+                        "lv-6": {"mode":"self","atk":0.40},
+                        "lv-7": {"mode":"self","atk":0.42},
+                        "lv-8": {"mode":"self","atk":0.44},
+                        "lv-9": {"mode":"self","atk":0.46},
+                        "lv-10": {"mode":"self","atk":0.50}
+                    }
+                }
+            },
+            {
+                "original": {
+                    "name": { 
+                        "jp": "直感 A",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "スターを大量獲得[Lv]",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": "7",
+                    "effect": ""
+                },
+                
+                "upgrade": {
+                    "name": { 
+                        "jp": "輝ける路 EX",
+                        "ch": "",
+                        "en": "" 
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "自身のNPを増やす[Lv.]▲&スターを大量獲得[Lv.]"
+                    },
+                    "costdown": "7",
+                    "effect": {
+                        "lv-1": {"mode":"self", "np-charge":20},
+                        "lv-2": {"mode":"self", "np-charge":21},
+                        "lv-3": {"mode":"self", "np-charge":22},
+                        "lv-4": {"mode":"self", "np-charge":23},
+                        "lv-5": {"mode":"self", "np-charge":24},
+                        "lv-6": {"mode":"self", "np-charge":25},
+                        "lv-7": {"mode":"self", "np-charge":26},
+                        "lv-8": {"mode":"self", "np-charge":27},
+                        "lv-9": {"mode":"self", "np-charge":28},
+                        "lv-10": {"mode":"self", "np-charge":30}
+                    }
+                }
+            }
+            ]
+        },
+        
+        "noble-phantasm": {
+            "original": {
+                "name": { 
+                    "jp": "エクスカリバー,約束された勝利の剣",
+                    "ch": "",
+                    "en": ""  
+                },
+                "card": "buster",
+                "description": {
+                    "jp": "敵全体に強力な攻撃[Lv.] ＋ 自身のNPをリチャージ<オーバーチャージで効果UP>",
+                    "ch": "",
+                    "en": "" 
+                },
+                "effect": {
+                    "lv-1": [{"mode":"allenemy","mag":300},{"mode":"self","np-charge":20}],
+                    "lv-2": [{"mode":"allenemy","mag":400},{"mode":"self","np-charge":27.5}],
+                    "lv-3": [{"mode":"allenemy","mag":450},{"mode":"self","np-charge":35}],
+                    "lv-4": [{"mode":"allenemy","mag":475},{"mode":"self","np-charge":42.5}],
+                    "lv-5": [{"mode":"allenemy","mag":500},{"mode":"self","np-charge":50}]
+                }
+            },
+            
+            "upgrade": {
+                "name": { 
+                    "jp": "エクスカリバー,約束された勝利の剣" 
+                },
+                "card": "buster",
+                "description": {
+                    "jp": "敵全体に強力な攻撃[Lv.] ＋ 自身のNPをリチャージ<オーバーチャージで効果UP>"
+                },
+                "effect": {
+                    "lv-1": [{"mode":"allenemy","mag":400},{"mode":"self","np-charge":20}],
+                    "lv-2": [{"mode":"allenemy","mag":500},{"mode":"self","np-charge":27.5}],
+                    "lv-3": [{"mode":"allenemy","mag":550},{"mode":"self","np-charge":35}],
+                    "lv-4": [{"mode":"allenemy","mag":575},{"mode":"self","np-charge":42.5}],
+                    "lv-5": [{"mode":"allenemy","mag":600},{"mode":"self","np-charge":50}]
+                }
+            }
+        }
+    }
+}

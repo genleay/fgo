@@ -1,0 +1,278 @@
+<servant>
+    <property>
+        <id>2</id>
+        <name>
+            <jp>アルトリア・ペンドラゴン</jp>
+            <ch>阿爾托莉亞・潘德拉剛</ch>
+            <en>Artoria Pendragon</en>
+        </name>
+        <class>
+            <type>saber</type>
+            <jp>セイバー</jp>
+            <ch>Saber</ch>
+            <en>Saber</en>
+        </class>
+        <rare>5</rare>
+        <cost>16</cost>
+        
+        <hp>
+            <lv-1>2222</lv-1>
+            <lv-90>15150</lv-90>
+            <lv-100>16597</lv-100>
+        </hp>
+        <atk>
+            <lv-1>1734</lv-1>
+            <lv-90>11221</lv-90>
+            <lv-100>12283</lv-100>
+        </atk>
+        
+        <attr>
+            <type>earth</type>
+            <jp>地</jp>
+            <ch>地</ch>
+            <en>Earth</en>
+        </attr>
+        <alignment>
+            <type>lawful,good</type>
+            <jp>秩序・善</jp>
+            <ch>秩序・善</ch>
+            <en>Lawful, Good</en>
+        </alignment>
+        <gender>
+            <type>female</type>
+            <jp>女</jp>
+            <ch>女性</ch>
+            <en>Female</en>
+        </gender>
+        <traits>
+            <type>Artoria,Dragon,Earth or Sky,Female,Humanoid,King,Riding,Saberface,Servant,Weak to Enuma Elish</type>
+            <jp>サーヴァント / 騎乗スキル / 人型 / 竜 / アルトリア顔 / セイバークラスのサーヴァント / アーサー / 王</jp>
+            <ch>從者, 騎乘,人型,龍,阿爾托莉亞臉,被「天地乖離開辟之星」所剋,被「人類神話・雷電降臨」所剋,被「神秘殺し」所剋,亞瑟,王</ch>
+            <en>Artoria, Dragon, Earth or Sky, Female, Humanoid, King, Riding, Saberface, Servant, Weak to Enuma Elish</en>
+        </traits>
+        
+        <star-abs>102</star-abs>
+        <star-gen>0.1</star-gen>
+        <np-charge-atk>0.86</np-charge-atk>
+        <np-charge-def>3.00</np-charge-def>
+        <death-rate>0.21</death-rate>
+        
+        <buster>
+            <hits>1</hits>
+            <np-rate>0.86</np-rate>
+        </buster>
+        <arts>
+            <hits>2</hits>
+            <np-rate>0.86</np-rate>
+        </arts>
+        <quick>
+            <hits>2</hits>
+            <np-rate>0.86</np-rate>
+        </quick>
+        <ex>
+            <hits>3</hits>
+            <np-rate>0.86</np-rate>
+        </ex>
+        <np>
+            <hits>1</hits>
+            <np-rate>0.86</np-rate>
+        </np>
+    </property>
+    
+    <p-skill>
+        <skill>
+            <name>
+                <jp>対魔力 A</jp>
+                <ch>対魔力 A</ch>
+                <en>Magic Resistance A</en>
+            </name>
+            <ico></ico>
+            <description>
+                <jp>自身の弱体耐性をアップ</jp>
+                <ch>自身的弱體耐性提升：20%</ch>
+                <en>Increases own debuff resistance by 20%.</en>
+            </description>
+            <effect>
+                
+            </effect>
+        </skill>
+        <skill>
+            <name>
+                <jp>騎乗 B</jp>
+                <ch>騎乗 B</ch>
+                <en>Riding B</en>
+            </name>
+            <ico></ico>
+            <description>
+                <jp>自身のQuickカードの性能をアップ</jp>
+                <ch>自身的Quick卡性能提升：8%</ch>
+                <en>Increases own Quick performance by 8%.</en>
+            </description>
+            <effect>
+                {quick:0.08}
+            </effect>
+        </skill>
+    </p-skill>
+    
+    <a-skill>
+        <skill>
+            <original>
+                <name>
+                    <jp>カリスマ B</jp>
+                    <ch></ch>
+                    <en></en>
+                </name>
+                <ico></ico>
+                <description>
+                    <jp>味方全体の攻撃力をアップ[Lv](3T)</jp>
+                    <ch></ch>
+                    <en></en>
+                </description>
+                <costdown>7</costdown>
+                <effect>
+                    <lv-1>{"mode":"allies","atk":0.09}</lv-1>
+                    <lv-2>{"mode":"allies","atk":0.099}</lv-2>
+                    <lv-3>{"mode":"allies","atk":0.108}</lv-3>
+                    <lv-4>{"mode":"allies","atk":0.117}</lv-4>
+                    <lv-5>{"mode":"allies","atk":0.126}</lv-5>
+                    <lv-6>{"mode":"allies","atk":0.135}</lv-6>
+                    <lv-7>{"mode":"allies","atk":0.144}</lv-7>
+                    <lv-8>{"mode":"allies","atk":0.153}</lv-8>
+                    <lv-9>{"mode":"allies","atk":0.162}</lv-9>
+                    <lv-10>{"mode":"allies","atk":0.18}</lv-10>
+                </effect>
+            </original>
+            
+        </skill>
+        
+        <skill>
+            <original>
+                <name>
+                    <jp>魔力放出 A</jp>
+                    <ch></ch>
+                    <en></en>
+                </name>
+                <ico></ico>
+                <description>
+                    <jp>自身のBusterカード性能をアップ[Lv](1T)</jp>
+                    <ch></ch>
+                    <en></en>
+                </description>
+                <costdown>7</costdown>
+                <effect>
+                    <lv-1>{"mode":"self","buster":0.3}</lv-1>
+                    <lv-2>{"mode":"self","buster":0.32}</lv-2>
+                    <lv-3>{"mode":"self","buster":0.34}</lv-3>
+                    <lv-4>{"mode":"self","buster":0.36}</lv-4>
+                    <lv-5>{"mode":"self","buster":0.38}</lv-5>
+                    <lv-6>{"mode":"self","buster":0.4}</lv-6>
+                    <lv-7>{"mode":"self","buster":0.42}</lv-7>
+                    <lv-8>{"mode":"self","buster":0.44}</lv-8>
+                    <lv-9>{"mode":"self","buster":0.46}</lv-9>
+                    <lv-10>{"mode":"self","buster":0.50}</lv-10>
+                </effect>
+            </original>
+            
+        </skill>
+        
+        <skill>
+            <original>
+                <name>
+                    <jp>直感 A</jp>
+                    <ch></ch>
+                    <en></en>
+                </name>
+                <ico></ico>
+                <description>
+                    <jp>スターを大量獲得[Lv]</jp>
+                    <ch></ch>
+                    <en></en>
+                </description>
+                <costdown>7</costdown>
+                <effect>
+                    <lv-1></lv-1>
+                    <lv-2></lv-2>
+                    <lv-3></lv-3>
+                    <lv-4></lv-4>
+                    <lv-5></lv-5>
+                    <lv-6></lv-6>
+                    <lv-7></lv-7>
+                    <lv-8></lv-8>
+                    <lv-9></lv-9>
+                    <lv-10></lv-10>
+                </effect>
+            </original>
+            <upgrade>
+                <name>
+                    <jp>輝ける路 EX</jp>
+                    <ch></ch>
+                    <en></en>
+                </name>
+                <ico></ico>
+                <description>
+                    <jp>自身のNPを増やす[Lv.]▲&amp;スターを大量獲得[Lv.]</jp>
+                    <ch></ch>
+                    <en></en>
+                </description>
+                <costdown>7</costdown>
+                <effect>
+                    <lv-1>{"mode":"self","np-charge":20}</lv-1>
+                    <lv-2>{"mode":"self","np-charge":21}</lv-2>
+                    <lv-3>{"mode":"self","np-charge":22}</lv-3>
+                    <lv-4>{"mode":"self","np-charge":23}</lv-4>
+                    <lv-5>{"mode":"self","np-charge":24}</lv-5>
+                    <lv-6>{"mode":"self","np-charge":25}</lv-6>
+                    <lv-7>{"mode":"self","np-charge":26}</lv-7>
+                    <lv-8>{"mode":"self","np-charge":27}</lv-8>
+                    <lv-9>{"mode":"self","np-charge":28}</lv-9>
+                    <lv-10>{"mode":"self","np-charge":30}</lv-10>
+                </effect>
+            </upgrade>
+        </skill>
+    </a-skill>
+    
+    <noble-phantasm>
+        <original>
+            <name>
+                <jp>エクスカリバー,約束された勝利の剣</jp>
+                <ch></ch>
+                <en></en>
+            </name>
+            <ico></ico>
+            <card>buster</card>
+            <description>
+                <jp>敵全体に強力な攻撃[Lv.] ＋ 自身のNPをリチャージ&lt;オーバーチャージで効果UP&gt;</jp>
+                <ch></ch>
+                <en></en>
+            </description>
+            <effect>
+                <lv-1>[{"mode":"allenemy","mag":300},{"mode":"self","np-charge":20}]</lv-1>
+                <lv-2>[{"mode":"allenemy","mag":400},{"mode":"self","np-charge":27.5}]</lv-2>
+                <lv-3>[{"mode":"allenemy","mag":450},{"mode":"self","np-charge":35}]</lv-3>
+                <lv-4>[{"mode":"allenemy","mag":475},{"mode":"self","np-charge":42.5}]</lv-4>
+                <lv-5>[{"mode":"allenemy","mag":500},{"mode":"self","np-charge":50}]</lv-5>
+            </effect>
+        </original>
+        <upgrade>
+            <name>
+                <jp>エクスカリバー,約束された勝利の剣</jp>
+                <ch></ch>
+                <en></en>
+            </name>
+            <ico></ico>
+            <card>buster</card>
+            <description>
+                <jp>敵全体に強力な攻撃[Lv.] ＋ 自身のNPをリチャージ&lt;オーバーチャージで効果UP&gt;</jp>
+                <ch></ch>
+                <en></en>
+            </description>
+            <effect>
+                <lv-1>[{"mode":"allenemy","mag":400},{"mode":"self","np-charge":20}]</lv-1>
+                <lv-2>[{"mode":"allenemy","mag":500},{"mode":"self","np-charge":27.5}]</lv-2>
+                <lv-3>[{"mode":"allenemy","mag":550},{"mode":"self","np-charge":35}]</lv-3>
+                <lv-4>[{"mode":"allenemy","mag":575},{"mode":"self","np-charge":42.5}]</lv-4>
+                <lv-5>[{"mode":"allenemy","mag":600},{"mode":"self","np-charge":50}]</lv-5>
+            </effect>
+        </upgrade>
+    </noble-phantasm>
+</servant>

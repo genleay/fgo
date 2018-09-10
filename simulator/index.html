@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>模擬器計算機</title>
+        <script>
+            var XHR = new XMLHttpRequest();
+            XHR.responseType = "json";
+            XHR.onreadystatechange = function(){
+                if(XHR.readyState == 4 && XHR.status == 200){
+                    alert("received!");
+                    console.log(XHR.response);
+                }
+            };
+            XHR.open("GET","/fgo/data/servant/002.servant");
+            XHR.send();
+        </script>
+    </head>
+    
+    <body>
+        
+    </body>
+</html>
