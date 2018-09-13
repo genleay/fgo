@@ -1,0 +1,316 @@
+{
+    "servant": {
+        "property": {
+            "id": 0,
+            "name": {
+                "jp": "",
+                "ch": "",
+                "en": ""
+            },
+            "class": {
+                "type": "",
+                "jp": "",
+                "ch": "",
+                "en": ""
+            },
+            "rare": 0,
+            "cost": 0,
+            "hp": {
+                "lv-1": 0,
+                "lv-90": 0,
+                "lv-100": 0
+            },
+            "atk": {
+                "lv-1": 0,
+                "lv-90": 0,
+                "lv-100": 0
+            },
+            "attr": {
+                "type": "",
+                "jp": "",
+                "ch": "",
+                "en": ""
+            },
+            "alignment": {
+                "type": ["",""],
+                "jp": "",
+                "ch": "",
+                "en": ""
+            },
+            "gender": {
+                "type": "",
+                "jp": "",
+                "ch": "",
+                "en": ""
+            },
+            "traits": {
+                "type": [""],
+                "jp": "",
+                "ch": "",
+                "en": ""
+            },
+            "star-abs": 0,
+            "star-gen": 0,
+            "np-charge-atk": 0,
+            "np-charge-def": 0,
+            "death-rate": 0,
+            "buster": {
+                "hits": 0,
+                "np-rate": 0
+            },
+            "arts": {
+                "hits": 0,
+                "np-rate": 0
+            },
+            "quick": {
+                "hits": 0,
+                "np-rate": 0
+            },
+            "ex": {
+                "hits": 0,
+                "np-rate": 0
+            },
+            "np": {
+                "hits": 0,
+                "np-rate": 0
+            }
+        },
+        "p-skill": {
+            "skill": [
+            {
+                "name": {
+                "jp": "",
+                "ch": "",
+                "en": ""
+                },
+                "ico": "",
+                "description": {
+                    "jp": "",
+                    "ch": "",
+                    "en": ""
+                },
+                "effect": ""
+            }
+            ]
+        },
+        
+        "a-skill": {
+            "skill": [{
+                "original": {
+                    "name": { 
+                        "jp": "",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 0,
+                    "effect": {
+                        "lv-1": {"mode":""},
+                        "lv-2": {"mode":""},
+                        "lv-3": {"mode":""},
+                        "lv-4": {"mode":""},
+                        "lv-5": {"mode":""},
+                        "lv-6": {"mode":""},
+                        "lv-7": {"mode":""},
+                        "lv-8": {"mode":""},
+                        "lv-9": {"mode":""},
+                        "lv-10": {"mode":""}
+                    }
+                },
+                
+                "upgrade": {
+                    "name": { 
+                        "jp": "",
+                        "ch": "",
+                        "en": "" 
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": ""
+                    },
+                    "costdown": 0,
+                    "effect": {
+                        "lv-1": {"mode":""},
+                        "lv-2": {"mode":""},
+                        "lv-3": {"mode":""},
+                        "lv-4": {"mode":""},
+                        "lv-5": {"mode":""},
+                        "lv-6": {"mode":""},
+                        "lv-7": {"mode":""},
+                        "lv-8": {"mode":""},
+                        "lv-9": {"mode":""},
+                        "lv-10": {"mode":""}
+                    }
+                }
+            },
+            
+            {
+                "original": {
+                    "name": { 
+                        "jp": "",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 0,
+                    "effect": {
+                        "lv-1": {"mode":""},
+                        "lv-2": {"mode":""},
+                        "lv-3": {"mode":""},
+                        "lv-4": {"mode":""},
+                        "lv-5": {"mode":""},
+                        "lv-6": {"mode":""},
+                        "lv-7": {"mode":""},
+                        "lv-8": {"mode":""},
+                        "lv-9": {"mode":""},
+                        "lv-10": {"mode":""}
+                    }
+                },
+                
+                "upgrade": {
+                    "name": { 
+                        "jp": "",
+                        "ch": "",
+                        "en": "" 
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": ""
+                    },
+                    "costdown": 0,
+                    "effect": {
+                        "lv-1": {"mode":""},
+                        "lv-2": {"mode":""},
+                        "lv-3": {"mode":""},
+                        "lv-4": {"mode":""},
+                        "lv-5": {"mode":""},
+                        "lv-6": {"mode":""},
+                        "lv-7": {"mode":""},
+                        "lv-8": {"mode":""},
+                        "lv-9": {"mode":""},
+                        "lv-10": {"mode":""}
+                    }
+                }
+            },         
+                     
+            {
+                "original": {
+                    "name": { 
+                        "jp": "",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 0,
+                    "effect": {
+                        "lv-1": {"mode":""},
+                        "lv-2": {"mode":""},
+                        "lv-3": {"mode":""},
+                        "lv-4": {"mode":""},
+                        "lv-5": {"mode":""},
+                        "lv-6": {"mode":""},
+                        "lv-7": {"mode":""},
+                        "lv-8": {"mode":""},
+                        "lv-9": {"mode":""},
+                        "lv-10": {"mode":""}
+                    }
+                },
+                
+                "upgrade": {
+                    "name": { 
+                        "jp": "",
+                        "ch": "",
+                        "en": "" 
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": ""
+                    },
+                    "costdown": 0,
+                    "effect": {
+                        "lv-1": {"mode":""},
+                        "lv-2": {"mode":""},
+                        "lv-3": {"mode":""},
+                        "lv-4": {"mode":""},
+                        "lv-5": {"mode":""},
+                        "lv-6": {"mode":""},
+                        "lv-7": {"mode":""},
+                        "lv-8": {"mode":""},
+                        "lv-9": {"mode":""},
+                        "lv-10": {"mode":""}
+                    }
+                }
+            }]
+        },
+        
+        "noble-phantasm": {
+            "original": {
+                "name": { 
+                    "jp": "",
+                    "ch": "",
+                    "en": ""  
+                },
+                "card": "",
+                "description": {
+                    "jp": "",
+                    "ch": "",
+                    "en": "" 
+                },
+                "effect": {
+                    "lv-1": [{"mode":""}],
+                    "lv-2": [{"mode":""}],
+                    "lv-3": [{"mode":""}],
+                    "lv-4": [{"mode":""}],
+                    "lv-5": [{"mode":""}]
+                }
+            },
+            
+            "upgrade": {
+                "name": { 
+                    "jp": "",
+                    "ch": "",
+                    "en": ""  
+                },
+                "card": "",
+                "description": {
+                    "jp": "",
+                    "ch": "",
+                    "en": "" 
+                },
+                "effect": {
+                    "lv-1": [{"mode":""}],
+                    "lv-2": [{"mode":""}],
+                    "lv-3": [{"mode":""}],
+                    "lv-4": [{"mode":""}],
+                    "lv-5": [{"mode":""}]
+                }
+            }
+        },
+        
+        "setting": {
+            "image": {
+                "battle": {
+                    "servant-sprite": {
+                        "width": 0,
+                        "ground-point": 0
+                    }
+                }
+            }
+        }
+    }
+}

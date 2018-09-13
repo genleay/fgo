@@ -1,7 +1,7 @@
 {
     "servant": {
         "property": {
-            "id": 2,
+            "id": "002",
             "name": {
                 "jp": "アルトリア・ペンドラゴン",
                 "ch": "阿爾托莉亞・潘德拉剛",
@@ -32,7 +32,7 @@
                 "en": "Earth"
             },
             "alignment": {
-                "type": "lawful,good",
+                "type": ["lawful","good"],
                 "jp": "秩序・善",
                 "ch": "秩序・善",
                 "en": "Lawful, Good"
@@ -44,7 +44,7 @@
                 "en": "Female"
             },
             "traits": {
-                "type": "Artoria,Dragon,Earth or Sky,Female,Humanoid,King,Riding,Saberface,Servant,Weak to Enuma Elish",
+                "type": ["Artoria","Dragon","Earth or Sky","Female","Humanoid","King","Riding","Saberface","Servant","Weak to Enuma Elish"],
                 "jp": "サーヴァント / 騎乗スキル / 人型 / 竜 / アルトリア顔 / セイバークラスのサーヴァント / アーサー / 王",
                 "ch": "從者, 騎乘,人型,龍,阿爾托莉亞臉,被「天地乖離開辟之星」所剋,被「人類神話・雷電降臨」所剋,被「神秘殺し」所剋,亞瑟,王",
                 "en": "Artoria, Dragon, Earth or Sky, Female, Humanoid, King, Riding, Saberface, Servant, Weak to Enuma Elish"
@@ -55,14 +55,17 @@
             "np-charge-def": 3.00,
             "death-rate": 0.21,
             "buster": {
+                "hold": 2,
                 "hits": 1,
                 "np-rate": 0.86
             },
             "arts": {
+                "hold": 2,
                 "hits": 2,
                 "np-rate": 0.86
             },
             "quick": {
+                "hold": 1,
                 "hits": 2,
                 "np-rate": 0.86
             },
@@ -103,10 +106,7 @@
                     "ch": "自身的Quick卡性能提升：8%",
                     "en": "Increases own Quick performance by 8%."
                 },
-                "effect": {
-                    "mode": "self",
-                    "quick": 0.08
-                }
+                "effect": [{"mode":"self","quick":[0.08,null,"lifetime"]}]
             }
             ]
         },
@@ -125,18 +125,18 @@
                         "ch": "",
                         "en": ""
                     },
-                    "costdown": "7",
+                    "costdown": 7,
                     "effect": {
-                        "lv-1": {"mode":"allies","atk":0.09},
-                        "lv-2": {"mode":"allies","atk":0.099},
-                        "lv-3": {"mode":"allies","atk":0.108},
-                        "lv-4": {"mode":"allies","atk":0.117},
-                        "lv-5": {"mode":"allies","atk":0.126},
-                        "lv-6": {"mode":"allies","atk":0.135},
-                        "lv-7": {"mode":"allies","atk":0.144},
-                        "lv-8": {"mode":"allies","atk":0.153},
-                        "lv-9": {"mode":"allies","atk":0.162},
-                        "lv-10": {"mode":"allies","atk":0.18}
+                        "lv-1": [{"mode":"allies","atk":[0.09,3,"turn"]}],
+                        "lv-2": [{"mode":"allies","atk":[0.099,3,"turn"]}],
+                        "lv-3": [{"mode":"allies","atk":[0.108,3,"turn"]}],
+                        "lv-4": [{"mode":"allies","atk":[0.117,3,"turn"]}],
+                        "lv-5": [{"mode":"allies","atk":[0.126,3,"turn"]}],
+                        "lv-6": [{"mode":"allies","atk":[0.135,3,"turn"]}],
+                        "lv-7": [{"mode":"allies","atk":[0.144,3,"turn"]}],
+                        "lv-8": [{"mode":"allies","atk":[0.153,3,"turn"]}],
+                        "lv-9": [{"mode":"allies","atk":[0.162,3,"turn"]}],
+                        "lv-10": [{"mode":"allies","atk":[0.18,3,"turn"]}]
                     }
                 }
             },
@@ -153,18 +153,18 @@
                         "ch": "",
                         "en": ""
                     },
-                    "costdown": "7",
+                    "costdown": 7,
                     "effect": {
-                        "lv-1": {"mode":"self","atk":0.30},
-                        "lv-2": {"mode":"self","atk":0.32},
-                        "lv-3": {"mode":"self","atk":0.34},
-                        "lv-4": {"mode":"self","atk":0.36},
-                        "lv-5": {"mode":"self","atk":0.38},
-                        "lv-6": {"mode":"self","atk":0.40},
-                        "lv-7": {"mode":"self","atk":0.42},
-                        "lv-8": {"mode":"self","atk":0.44},
-                        "lv-9": {"mode":"self","atk":0.46},
-                        "lv-10": {"mode":"self","atk":0.50}
+                        "lv-1": [{"mode":"self","atk":[0.30,1,"turn"]}],
+                        "lv-2": [{"mode":"self","atk":[0.32,1,"turn"]}],
+                        "lv-3": [{"mode":"self","atk":[0.34,1,"turn"]}],
+                        "lv-4": [{"mode":"self","atk":[0.36,1,"turn"]}],
+                        "lv-5": [{"mode":"self","atk":[0.38,1,"turn"]}],
+                        "lv-6": [{"mode":"self","atk":[0.40,1,"turn"]}],
+                        "lv-7": [{"mode":"self","atk":[0.42,1,"turn"]}],
+                        "lv-8": [{"mode":"self","atk":[0.44,1,"turn"]}],
+                        "lv-9": [{"mode":"self","atk":[0.46,1,"turn"]}],
+                        "lv-10": [{"mode":"self","atk":[0.50,1,"turn"]}]
                     }
                 }
             },
@@ -181,7 +181,7 @@
                         "ch": "",
                         "en": ""
                     },
-                    "costdown": "7",
+                    "costdown": 7,
                     "effect": ""
                 },
                 
@@ -195,18 +195,18 @@
                     "description": {
                         "jp": "自身のNPを増やす[Lv.]▲&スターを大量獲得[Lv.]"
                     },
-                    "costdown": "7",
+                    "costdown": 7,
                     "effect": {
-                        "lv-1": {"mode":"self", "np-charge":20},
-                        "lv-2": {"mode":"self", "np-charge":21},
-                        "lv-3": {"mode":"self", "np-charge":22},
-                        "lv-4": {"mode":"self", "np-charge":23},
-                        "lv-5": {"mode":"self", "np-charge":24},
-                        "lv-6": {"mode":"self", "np-charge":25},
-                        "lv-7": {"mode":"self", "np-charge":26},
-                        "lv-8": {"mode":"self", "np-charge":27},
-                        "lv-9": {"mode":"self", "np-charge":28},
-                        "lv-10": {"mode":"self", "np-charge":30}
+                        "lv-1": [{"mode":"self", "np-charge":20}],
+                        "lv-2": [{"mode":"self", "np-charge":21}],
+                        "lv-3": [{"mode":"self", "np-charge":22}],
+                        "lv-4": [{"mode":"self", "np-charge":23}],
+                        "lv-5": [{"mode":"self", "np-charge":24}],
+                        "lv-6": [{"mode":"self", "np-charge":25}],
+                        "lv-7": [{"mode":"self", "np-charge":26}],
+                        "lv-8": [{"mode":"self", "np-charge":27}],
+                        "lv-9": [{"mode":"self", "np-charge":28}],
+                        "lv-10": [{"mode":"self", "np-charge":30}]
                     }
                 }
             }
@@ -237,7 +237,9 @@
             
             "upgrade": {
                 "name": { 
-                    "jp": "エクスカリバー,約束された勝利の剣" 
+                    "jp": "エクスカリバー,約束された勝利の剣",
+                    "ch": "",
+                    "en": ""  
                 },
                 "card": "buster",
                 "description": {
@@ -249,6 +251,17 @@
                     "lv-3": [{"mode":"allenemy","mag":550},{"mode":"self","np-charge":35}],
                     "lv-4": [{"mode":"allenemy","mag":575},{"mode":"self","np-charge":42.5}],
                     "lv-5": [{"mode":"allenemy","mag":600},{"mode":"self","np-charge":50}]
+                }
+            }
+        },
+        
+        "setting": {
+            "image": {
+                "battle": {
+                    "servant-sprite": {
+                        "height": 125,
+                        "ground-point": 2
+                    }
                 }
             }
         }

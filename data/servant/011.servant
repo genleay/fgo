@@ -1,0 +1,310 @@
+{
+    "servant": {
+        "property": {
+            "id": "011",
+            "name": {
+                "jp": "エミヤ",
+                "ch": "Emiya",
+                "en": "Emiya"
+            },
+            "class": {
+                "type": "archer",
+                "jp": "アーチャー",
+                "ch": "Archer",
+                "en": "Archer"
+            },
+            "rare": 4,
+            "cost": 12,
+            "hp": {
+                "lv-1": 1843,
+                "lv-80": 11521,
+                "lv-100": 13969
+            },
+            "atk": {
+                "lv-1": 1566,
+                "lv-80": 9398,
+                "lv-100": 11379
+            },
+            "attr": {
+                "type": "man",
+                "jp": "人",
+                "ch": "人",
+                "en": "Man"
+            },
+            "alignment": {
+                "type": ["true","neutral"],
+                "jp": "中立・中庸",
+                "ch": "中立・中庸",
+                "en": "True Neutral"
+            },
+            "gender": {
+                "type": "male",
+                "jp": "男",
+                "ch": "男性",
+                "en": "Male"
+            },
+            "traits": {
+                "type": ["Brynhildr's Beloved", "Humanoid", "Male", "Servant", "Weak to Enuma Elish"],
+                "jp": "サーヴァント / 人型 / 愛する者",
+                "ch": "人型,被「天地乖離開辟之星」所剋,愛人",
+                "en": "Brynhildr's Beloved, Humanoid, Male, Servant, Weak to Enuma Elish"
+            },
+            "star-abs": 145,
+            "star-gen": 0.079,
+            "np-charge-atk": 0.51,
+            "np-charge-def": 3.00,
+            "death-rate": 31.5,
+            "buster": {
+                "hold": 1,
+                "hits": 1,
+                "np-rate": 0.51
+            },
+            "arts": {
+                "hold": 3,
+                "hits": 3,
+                "np-rate": 0.51
+            },
+            "quick": {
+                "hold": 1,
+                "hits": 2,
+                "np-rate": 0.51
+            },
+            "ex": {
+                "hits": 5,
+                "np-rate": 0.51
+            },
+            "np": {
+                "hits": 10,
+                "np-rate": 0.51
+            }
+        },
+        "p-skill": {
+            "skill": [{
+                "name": {
+                "jp": "対魔力 D",
+                "ch": "対魔力 D",
+                "en": "Magic Resistance D"
+                },
+                "ico": "",
+                "description": {
+                    "jp": "自身の弱体耐性を少しアップ",
+                    "ch": "自身的弱體耐性稍微提升：12.5%",
+                    "en": "Increases own debuff resistance by 12.5%."
+                },
+                "effect": [{}]
+            },
+            {
+                "name": {
+                    "jp": "単独行動 B",
+                    "ch": "単独行動 B",
+                    "en": "Independent Action B"
+                },
+                "ico": "",
+                "description": {
+                    "jp": "自身のクリティカル威力をアップ",
+                    "ch": "自身的Critical威力提升：8%",
+                    "en": "Increases own critical damage by 8%."
+                },
+                "effect": [{"mode":"self", "critical": [0.08,null,"lifetime"]}]
+            }]
+        },
+        
+        "a-skill": {
+            "skill": [{
+                "original": {
+                    "name": { 
+                        "jp": "心眼（真） B",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "自身に回避状態を付与(1ターン)＆防御力をアップ[Lv.](3ターン)",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 8,
+                    "effect": {
+                        "lv-1": [{"mode":"self","evade":[1,"turn"],"def":[0.09,3,"turn"]}],
+                        "lv-2": [{"mode":"self","evade":[1,"turn"],"def":[0.099,3,"turn"]}],
+                        "lv-3": [{"mode":"self","evade":[1,"turn"],"def":[0.108,3,"turn"]}],
+                        "lv-4": [{"mode":"self","evade":[1,"turn"],"def":[0.117,3,"turn"]}],
+                        "lv-5": [{"mode":"self","evade":[1,"turn"],"def":[0.126,3,"turn"]}],
+                        "lv-6": [{"mode":"self","evade":[1,"turn"],"def":[0.135,3,"turn"]}],
+                        "lv-7": [{"mode":"self","evade":[1,"turn"],"def":[0.144,3,"turn"]}],
+                        "lv-8": [{"mode":"self","evade":[1,"turn"],"def":[0.153,3,"turn"]}],
+                        "lv-9": [{"mode":"self","evade":[1,"turn"],"def":[0.162,3,"turn"]}],
+                        "lv-10": [{"mode":"self","evade":[1,"turn"],"def":[0.18,3,"turn"]}]
+                    }
+                }
+            },
+            
+            {
+                "original": {
+                    "name": { 
+                        "jp": "千里眼 C",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "自身のスター発生率をアップ[Lv.](3ターン)",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 8,
+                    "effect": {
+                        "lv-1": [{"mode":"self","star-gen":[0.16,3,"turn"]}],
+                        "lv-2": [{"mode":"self","star-gen":[0.176,3,"turn"]}],
+                        "lv-3": [{"mode":"self","star-gen":[0.192,3,"turn"]}],
+                        "lv-4": [{"mode":"self","star-gen":[0.208,3,"turn"]}],
+                        "lv-5": [{"mode":"self","star-gen":[0.224,3,"turn"]}],
+                        "lv-6": [{"mode":"self","star-gen":[0.24,3,"turn"]}],
+                        "lv-7": [{"mode":"self","star-gen":[0.256,3,"turn"]}],
+                        "lv-8": [{"mode":"self","star-gen":[0.272,3,"turn"]}],
+                        "lv-9": [{"mode":"self","star-gen":[0.288,3,"turn"]}],
+                        "lv-10": [{"mode":"self","star-gen":[0.32,3,"turn"]}]
+                    }
+                },
+                
+                "upgrade": {
+                    "name": { 
+                        "jp": "鷹の瞳 B+",
+                        "ch": "",
+                        "en": "" 
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "自身のスター発生率をアップ[Lv.]▲(3ターン)＆クリティカル威力をアップ[Lv.]▲(3ターン)",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 0,
+                    "effect": {
+                        "lv-1": [{"mode":"self","star-gen":[0.50,3,"turn"],"critical":[0.50,3,"turn"]}],
+                        "lv-2": [{"mode":"self","star-gen":[0.55,3,"turn"],"critical":[0.55,3,"turn"]}],
+                        "lv-3": [{"mode":"self","star-gen":[0.60,3,"turn"],"critical":[0.60,3,"turn"]}],
+                        "lv-4": [{"mode":"self","star-gen":[0.65,3,"turn"],"critical":[0.65,3,"turn"]}],
+                        "lv-5": [{"mode":"self","star-gen":[0.70,3,"turn"],"critical":[0.70,3,"turn"]}],
+                        "lv-6": [{"mode":"self","star-gen":[0.75,3,"turn"],"critical":[0.75,3,"turn"]}],
+                        "lv-7": [{"mode":"self","star-gen":[0.80,3,"turn"],"critical":[0.80,3,"turn"]}],
+                        "lv-8": [{"mode":"self","star-gen":[0.85,3,"turn"],"critical":[0.85,3,"turn"]}],
+                        "lv-9": [{"mode":"self","star-gen":[0.90,3,"turn"],"critical":[0.90,3,"turn"]}],
+                        "lv-10": [{"mode":"self","star-gen":[1,3,"turn"],"critical":[1,3,"turn"]}]
+                    }
+                }
+            },         
+                     
+            {
+                "original": {
+                    "name": { 
+                        "jp": "魔術 C-",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "自身のArtsカード性能をアップ[Lv.](1ターン)",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 7,
+                    "effect": {
+                        "lv-1": [{"mode":"self","arts":[0.21,1,"turn"]}],
+                        "lv-2": [{"mode":"self","arts":[0.224,1,"turn"]}],
+                        "lv-3": [{"mode":"self","arts":[0.238,1,"turn"]}],
+                        "lv-4": [{"mode":"self","arts":[0.252,1,"turn"]}],
+                        "lv-5": [{"mode":"self","arts":[0.266,1,"turn"]}],
+                        "lv-6": [{"mode":"self","arts":[0.28,1,"turn"]}],
+                        "lv-7": [{"mode":"self","arts":[0.294,1,"turn"]}],
+                        "lv-8": [{"mode":"self","arts":[0.308,1,"turn"]}],
+                        "lv-9": [{"mode":"self","arts":[0.322,1,"turn"]}],
+                        "lv-10": [{"mode":"self","arts":[0.35,1,"turn"]}]
+                    }
+                },
+                
+                "upgrade": {
+                    "name": { 
+                        "jp": "投影魔術 A",
+                        "ch": "",
+                        "en": "" 
+                    },
+                    "ico": "",
+                    "description": {
+                        "jp": "自身のArtsカード性能をアップ[Lv.]▲(1ターン)＆Quickカード性能をアップ[Lv.]▲(1ターン)＆Busterカード性能をアップ[Lv.]▲(1ターン)",
+                        "ch": "",
+                        "en": "" 
+                    },
+                    "costdown": 7,
+                    "effect": {
+                        "lv-1": [{"mode":"self","arts":[0.25,1,"turn"],"quick":[0.25,1,"turn"],"buster":[0.25,1,"turn"]}],
+                        "lv-2": [{"mode":"self","arts":[0.265,1,"turn"],"quick":[0.265,1,"turn"],"buster":[0.265,1,"turn"]}],
+                        "lv-3": [{"mode":"self","arts":[0.28,1,"turn"],"quick":[0.28,1,"turn"],"buster":[0.28,1,"turn"]}],
+                        "lv-4": [{"mode":"self","arts":[0.295,1,"turn"],"quick":[0.295,1,"turn"],"buster":[0.295,1,"turn"]}],
+                        "lv-5": [{"mode":"self","arts":[0.31,1,"turn"],"quick":[0.31,1,"turn"],"buster":[0.31,1,"turn"]}],
+                        "lv-6": [{"mode":"self","arts":[0.325,1,"turn"],"quick":[0.325,1,"turn"],"buster":[0.325,1,"turn"]}],
+                        "lv-7": [{"mode":"self","arts":[0.34,1,"turn"],"quick":[0.34,1,"turn"],"buster":[0.34,1,"turn"]}],
+                        "lv-8": [{"mode":"self","arts":[0.355,1,"turn"],"quick":[0.355,1,"turn"],"buster":[0.355,1,"turn"]}],
+                        "lv-9": [{"mode":"self","arts":[0.37,1,"turn"],"quick":[0.37,1,"turn"],"buster":[0.37,1,"turn"]}],
+                        "lv-10": [{"mode":"self","arts":[0.40,1,"turn"],"quick":[0.40,1,"turn"],"buster":[0.40,1,"turn"]}]
+                    }
+                }
+            }]
+        },
+        
+        "noble-phantasm": {
+            "original": {
+                "name": { 
+                    "jp": "アンリミテッドブレイドワークス, 無限の剣製",
+                    "ch": "アンリミテッドブレイドワークス, 無限の剣製",
+                    "en": "Unlimited Blade Works, Infinite Creation of Swords"
+                },
+                "card": "",
+                "description": {
+                    "jp": "敵全体に強力な防御力無視攻撃[Lv.]＆攻撃力をダウン(3ターン)<オーバーチャージで効果UP>",
+                    "ch": "",
+                    "en": "" 
+                },
+                "effect": {
+                    "lv-1": [{"mode":"allenemy","mag":300,"atk":-0.1}],
+                    "lv-2": [{"mode":"allenemy","mag":400,"atk":-0.15}],
+                    "lv-3": [{"mode":"allenemy","mag":450,"atk":-0.20}],
+                    "lv-4": [{"mode":"allenemy","mag":475,"atk":-0.25}],
+                    "lv-5": [{"mode":"allenemy","mag":500,"atk":-0.30}]
+                }
+            },
+            
+            "upgrade": {
+                "name": { 
+                    "jp": "アンリミテッドブレイドワークス, 無限の剣製",
+                    "ch": "アンリミテッドブレイドワークス, 無限の剣製",
+                    "en": "Unlimited Blade Works, Infinite Creation of Swords"
+                },
+                "card": "",
+                "description": {
+                    "jp": "敵全体に強力な防御力無視攻撃[Lv.]▲＆攻撃力をダウン(3ターン)<オーバーチャージで効果UP>",
+                    "ch": "",
+                    "en": "" 
+                },
+                "effect": {
+                    "lv-1": [{"mode":"allenemy","mag":400,"atk":-0.1}],
+                    "lv-2": [{"mode":"allenemy","mag":500,"atk":-0.15}],
+                    "lv-3": [{"mode":"allenemy","mag":550,"atk":-0.20}],
+                    "lv-4": [{"mode":"allenemy","mag":575,"atk":-0.25}],
+                    "lv-5": [{"mode":"allenemy","mag":600,"atk":-0.30}]
+                }
+            }
+        },
+        
+        "setting": {
+            "image": {
+                "battle": {
+                    "servant-sprite": {
+                        "height": 140,
+                        "ground-point": 4
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,22 +1,270 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>模擬器計算機</title>
+        <script src="/fgo/data/js/jquery.min..js"></script>
+        <script src="servant.class.js" type="text/javascript"></script>
         <script>
-            var XHR = new XMLHttpRequest();
-            XHR.responseType = "json";
-            XHR.onreadystatechange = function(){
-                if(XHR.readyState == 4 && XHR.status == 200){
-                    alert("received!");
-                    console.log(XHR.response);
+            var servant = {};
+            var servant_list;
+            var servant_list_json;
+            var setServantSelect;
+            var setServantToQueue;
+            var getServantList;
+            var getServantJson;
+            var setLanguage = function(lang){
+                switch(lang){
+                    case 'jp':
+                        $('#setting_lang_tag').html('言語');
+                        break;
+                    case 'ch':
+                        $('#setting_lang_tag').html('語言');
+                        break;
+                    case 'en':
+                        $('#setting_lang_tag').html('Language');
+                        break;
                 }
+                setServantSelect(servant_list_json,lang);
             };
-            XHR.open("GET","/fgo/data/servant/002.servant");
-            XHR.send();
+            
+            $(document).ready(function(){
+                setServantSelect = function(servant_list,lang){
+                    var select_element = document.createElement("select");
+                    var option_element = document.createElement("option");
+                    var pls_choice;
+                    option_element.setAttribute('value', '');
+                    switch(lang){
+                        case 'jp':
+                            pls_choice = "選んでください";
+                            break;
+                        case 'ch':
+                            pls_choice = "請選擇";
+                            break;
+                        case 'en':
+                            pls_choice = "Please choice";
+                            break;
+                    }
+                    option_element.appendChild(document.createTextNode(pls_choice));
+                    select_element.appendChild(option_element);
+                    
+                    for(i=0;i<servant_list.length;i++){
+                        option_element = document.createElement("option");
+                        option_element.setAttribute('value',servant_list[i]['id']);
+                        option_element.appendChild(document.createTextNode('No.' +servant_list[i]['id'] +' ' +servant_list[i]['name'][lang]));
+                        select_element.appendChild(option_element);
+                    }
+                    
+                    $('#setting_servant1_select').html(select_element.innerHTML);
+                    $('#setting_servant2_select').html(select_element.innerHTML);
+                    $('#setting_servant3_select').html(select_element.innerHTML);
+                };
+                getServantJson = function(servant_id,source_function = null,source_parameter = null){
+                    var XHR = new XMLHttpRequest();
+                    XHR.responseType = 'json';
+                    XHR.SourceFunction = (source_function) ? source_function : null;
+                    XHR.source_parameter = (source_parameter) ? source_parameter : null;
+                    XHR.onreadystatechange = function(){
+                        if(this.readyState == 4 && this.status == 200){
+                            try{
+                                var servant_json = XHR.response;
+                                testjson = servant_json;
+                                servant[servant_json['servant']['property']['id']] = new Servant(servant_json);
+                                console.log('recived!');
+                                if(this.SourceFunction.name == 'setServantToQueue'){
+                                    this.SourceFunction(servant_json['servant']['property']['id'],this.source_parameter);
+                                }
+                            }
+                            catch(e){
+                                console.log(e);
+                            }
+                        }
+                        else if(XHR.readyState == 4 && XHR.status != 200){
+                            console.log(XHR.status);
+                        }
+                    };
+                    var jsonlink = '/fgo/data/servant/' +servant_id +'.servant';
+                    XHR.open('GET',jsonlink);
+                    XHR.send();
+                };
+                setServantToQueue = function(servant_id,seq){
+                    //servant-queue
+                    try{
+                        //check servant in seq exist, delete if exist
+                        if($('#servant-sprite-' +seq).length != 0){
+                            $('#servant-sprite-' +seq).remove();
+                        }
+                        
+                        if(servant_id in servant){
+                            var img_width_orig,img_height_orig;
+                            var img_path = '/fgo/img/servant/' +servant_id +"_sprite3.png";
+                            var img_target_height = servant[servant_id].getSetting().getBattleServantSprite().getHeight();
+                            var img_ground_point = servant[servant_id].getSetting().getBattleServantSprite().getGroundPoint();
+                            
+                            //preload image but not show on site, so cannot get img width and height now
+                            //it will fix css:left onload
+                            var setPosition = function(path, target_height, ground_point, seq, callback){
+                                let img = new Image();
+                                img.src = path;
+                                img.target_height = target_height;
+                                img.ground_point = ground_point;
+                                img.seq = seq;
+                                img.onload = function(){ callback(this, this.width, this.height, this.target_height, this.ground_point, this.seq); };
+                            };
+                            setPosition(img_path, img_target_height, img_ground_point, seq, function(img_element, orig_width, orig_height, target_height, gp, seq){ 
+                                var mag = target_height / orig_height;
+                                var top_fix = 335-(orig_height *mag);
+                                var left_fix = ((orig_width *mag)/10 *gp) *-1 +(136*(seq-1));
+                                $('#servant-sprite-' +seq).css({
+                                    top: top_fix,
+                                    left: left_fix
+                                });
+                            });
+                            
+                            var servant_sprite_div = $('<div></div>').attr({
+                                id: 'servant-sprite-' +seq,
+                                class:'servant-sprite'
+                            });
+                            $(servant_sprite_div).css('z-index', 400+seq);
+                            var servant_sprite_img = $('<img>').attr({
+                                class: 'servant-sprite-img',
+                                src: img_path
+                            });
+                            $(servant_sprite_img).css({
+                                height: img_target_height
+                            });
+                            $(servant_sprite_img).click(function(){ console.log($(this).parent().css('z-index')); });
+                            $(servant_sprite_div).append(servant_sprite_img);
+                            $('.servant-queue').append(servant_sprite_div);
+                            
+                        }
+                        else{
+                            getServantJson(servant_id,setServantToQueue,seq);
+                        }
+                    }
+                    catch(e){
+                        console.log(e);
+                    }
+                };
+                getServantList  = function(){
+                    var XHR = new XMLHttpRequest();
+                    XHR.responseType = "json";
+                    XHR.onreadystatechange = function(){
+                        if(XHR.readyState == 4 && XHR.status == 200){
+                            console.log("received!");
+                            console.log(XHR.response);
+                            servant_list_json = XHR.response;
+                            setServantSelect(servant_list_json,$('#setting_lang_select').val());
+                        }
+                    };
+                    
+                    XHR.open("GET","/fgo/data/servant/servant.list.json");
+                    XHR.send();
+                };
+                
+                getServantList();
+                //$('.servant-sprite')
+            });
         </script>
+        <style>
+            .game-container {
+                width: 848px;
+                height: 480px;
+                overflow: hidden;
+                border-width: medium;
+                border-color: gray;
+                background-color: aquamarine;
+                opacity: 1;
+            }
+            
+            .scene {
+                width: inherit;
+                height: inherit;
+                position: relative;
+            }
+            
+            .battle-bgimage {
+                width: 100%;
+                height: auto;
+                
+                position: absolute;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .servant-queue {
+                position: absolute;
+                width: 408px;
+                height: 335px;
+                left: 470px;
+            }
+            
+            .servant-sprite {
+                position: absolute;
+                display: inline-block;
+            }
+            
+            .allies-control-panel {
+                display: block;
+            }
+            
+            .allies-control-panel row {
+                display: inline-block;
+            }
+            
+        </style>
     </head>
     
     <body>
-        
+        <div class="container">
+            <div class="game-container">
+                <div class="scene battle-scene">
+                    <div class="battle-bgimage">
+                        <img src="/fgo/img/grassland.jpg" style="width: inherit;">
+                    </div>
+                    <div class="servant-queue">
+                        <!-- z-index 400 -->
+                    </div>
+                </div>
+            </div>
+            
+            <br>
+            <!---------------------------------  控制台 Control panel ------------------------------------------->
+            <div class="control-panel">
+                <div class="allies-control-panel">
+                    <div class="row">
+                        <span id="setting_lang_tag">言語</span><span>: </span>
+                        <select id="setting_lang_select" onchange="setLanguage(this.value)">
+                            <option value="jp" selected>日本語</option>
+                            <option value="ch">正體中文</option>
+                            <option value="en">English</option>
+                        </select>
+                        
+                        <span>Servant 1:</span>
+                        <select id="setting_servant1_select" onchange="setServantToQueue(this.value,1)">
+                        
+                        </select>
+                        
+                        <span>Servant 2:</span>
+                        <select id="setting_servant2_select" onchange="setServantToQueue(this.value,2)">
+                        
+                        </select>
+                        
+                        <span>Servant 3:</span>
+                        <select id="setting_servant3_select" onchange="setServantToQueue(this.value,3)">
+                        
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="scene">
+                <div class="battle-bgimage">
+                    <img src="../img/ss_test.png" style="width:848; height:auto">
+                </div>
+            </div>
+        </div>
+        <p id="servant_name"></p>
     </body>
 </html>
