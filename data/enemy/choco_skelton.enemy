@@ -1,0 +1,35 @@
+{
+    "enemy": {
+        "property": {
+            "name": {
+                "jp": "チョコスケルトン",
+                "ch": "巧克力骷髏",
+                "en": "Choco Skelton"
+            }
+        },
+        
+        "p-skill": {
+            
+        },
+        
+        "a-skill": {
+            
+        },
+        
+        "noble-phantasm": {
+            
+        },
+        
+        "setting": {
+            "image": {
+                "battle": {
+                    "servant-sprite": {
+                        "width": 0,
+                        "height": 148,
+                        "ground-point": 3
+                    }
+                }
+            }
+        }
+    }
+}

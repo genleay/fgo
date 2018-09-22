@@ -1,0 +1,259 @@
+{
+    "servant": {
+        "property": {
+            "id": "017",
+            "name": {
+                "jp": "クー・フーリン",
+                "ch": "庫・夫林",
+                "en": "Cú Chulainn"
+            },
+            "class": {
+                "type": "lancer",
+                "jp": "ランサー",
+                "ch": "Lancer",
+                "en": "Lancer"
+            },
+            "rare": 3,
+            "cost": 7,
+            "hp": {
+                "lv-1": 1726,
+                "lv-70": 9593,
+                "lv-100": 13007
+            },
+            "atk": {
+                "lv-1": 1344,
+                "lv-70": 7239,
+                "lv-100": 9797
+            },
+            "attr": {
+                "type": "sky",
+                "jp": "天",
+                "ch": "天",
+                "en": "Sky"
+            },
+            "alignment": {
+                "type": ["lawful","neutral"],
+                "jp": "秩序・中庸",
+                "ch": "秩序・中庸",
+                "en": "Lawful, Neutral"
+            },
+            "gender": {
+                "type": "male",
+                "jp": "男",
+                "ch": "男性",
+                "en": "Male"
+            },
+            "traits": {
+                "type": ["Brynhildr's Beloved", "Divine", "Earth or Sky", "Humanoid", "Male", "Servant", "Weak to Enuma Elish"],
+                "jp": "サーヴァント / 人型 / 神性 / 愛する者",
+                "ch": "人型,神性,被「天地乖離開辟之星」所剋,被「人類神話・雷電降臨」所剋,被「神秘殺し」所剋,愛人",
+                "en": "Brynhildr's Beloved, Divine, Earth or Sky, Humanoid, Male, Servant, Weak to Enuma Elish"
+            },
+            "star-abs": 87,
+            "star-gen": 0.121,
+            "np-charge-atk": 1.07,
+            "np-charge-def": 4.00,
+            "death-rate": 0.32,
+            "buster": {
+                "hold": 2,
+                "hits": 1,
+                "np-rate": 1.07
+            },
+            "arts": {
+                "hold": 1,
+                "hits": 2,
+                "np-rate": 1.07
+            },
+            "quick": {
+                "hold": 2,
+                "hits": 2,
+                "np-rate": 1.07
+            },
+            "ex": {
+                "hits": 3,
+                "np-rate": 1.07
+            },
+            "np": {
+                "hits": 1,
+                "np-rate": 1.07
+            }
+        },
+        "p-skill": {
+            "skill": [
+            {
+                "name": {
+                "jp": "対魔力 C",
+                "ch": "対魔力 C",
+                "en": "Magic Resistance C"
+                },
+                "ico": "",
+                "description": {
+                    "jp": "自身の弱体耐性を少しアップ",
+                    "ch": "自身的弱體耐性稍微提升：15%",
+                    "en": "Increases own debuff resistance by 15%."
+                },
+                "effect": [{}]
+            },
+            {
+                "name": {
+                "jp": "神性 B",
+                "ch": "神性 B",
+                "en": "Divinity B"
+                },
+                "ico": "",
+                "description": {
+                    "jp": "自身に与ダメージプラス状態を付与",
+                    "ch": "對自身賦予傷害加成狀態：175",
+                    "en": "Increases own damage by 175."
+                },
+                "effect": [{"mode":"self","damage-plus":[175,null,"lifetime"]}]
+            }
+            ]
+        },
+        
+        "a-skill": {
+            "skill": [{
+                "original": {
+                    "name": { 
+                        "jp": "戦闘続行 A",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "SkillIcon_404.png",
+                    "description": {
+                        "jp": "自身にガッツ状態(1回・5ターン)を付与[Lv.]",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 9,
+                    "effect": {
+                        "lv-1": [{"mode":""}],
+                        "lv-2": [{"mode":""}],
+                        "lv-3": [{"mode":""}],
+                        "lv-4": [{"mode":""}],
+                        "lv-5": [{"mode":""}],
+                        "lv-6": [{"mode":""}],
+                        "lv-7": [{"mode":""}],
+                        "lv-8": [{"mode":""}],
+                        "lv-9": [{"mode":""}],
+                        "lv-10": [{"mode":""}]
+                    }
+                }
+            },
+            
+            {
+                "original": {
+                    "name": { 
+                        "jp": "矢避けの加護 B",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "SkillIcon_402.png",
+                    "description": {
+                        "jp": "自身に回避状態を付与(3回)＆防御力をアップ[Lv.](3ターン)",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 7,
+                    "effect": {
+                        "lv-1": [{"mode":"self","evade":[3,"time"],"def":[0.08,3,"turn"]}],
+                        "lv-2": [{"mode":"self","evade":[3,"time"],"def":[0.088,3,"turn"]}],
+                        "lv-3": [{"mode":"self","evade":[3,"time"],"def":[0.096,3,"turn"]}],
+                        "lv-4": [{"mode":"self","evade":[3,"time"],"def":[0.104,3,"turn"]}],
+                        "lv-5": [{"mode":"self","evade":[3,"time"],"def":[0.112,3,"turn"]}],
+                        "lv-6": [{"mode":"self","evade":[3,"time"],"def":[0.12,3,"turn"]}],
+                        "lv-7": [{"mode":"self","evade":[3,"time"],"def":[0.128,3,"turn"]}],
+                        "lv-8": [{"mode":"self","evade":[3,"time"],"def":[0.136,3,"turn"]}],
+                        "lv-9": [{"mode":"self","evade":[3,"time"],"def":[0.144,3,"turn"]}],
+                        "lv-10": [{"mode":"self","evade":[3,"time"],"def":[0.16,3,"turn"]}]
+                    }
+                }
+            },         
+                     
+            {
+                "original": {
+                    "name": { 
+                        "jp": "仕切り直し C",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "ico": "SkillIcon_608.png",
+                    "description": {
+                        "jp": "自身の弱体状態を解除＆HPを回復[Lv.]",
+                        "ch": "",
+                        "en": ""
+                    },
+                    "costdown": 7,
+                    "effect": {
+                        "lv-1": [{"mode":"self","remove-debuff":"all","recover-hp":500}],
+                        "lv-2": [{"mode":"self","remove-debuff":"all","recover-hp":600}],
+                        "lv-3": [{"mode":"self","remove-debuff":"all","recover-hp":700}],
+                        "lv-4": [{"mode":"self","remove-debuff":"all","recover-hp":800}],
+                        "lv-5": [{"mode":"self","remove-debuff":"all","recover-hp":900}],
+                        "lv-6": [{"mode":"self","remove-debuff":"all","recover-hp":1000}],
+                        "lv-7": [{"mode":"self","remove-debuff":"all","recover-hp":1100}],
+                        "lv-8": [{"mode":"self","remove-debuff":"all","recover-hp":1200}],
+                        "lv-9": [{"mode":"self","remove-debuff":"all","recover-hp":1300}],
+                        "lv-10": [{"mode":"self","remove-debuff":"all","recover-hp":1500}]
+                    }
+                }
+            }]
+        },
+        
+        "noble-phantasm": {
+            "original": {
+                "name": { 
+                    "jp": "ゲイ・ボルク,刺し穿つ死棘の槍",
+                    "ch": "",
+                    "en": ""  
+                },
+                "card": "quick",
+                "description": {
+                    "jp": "敵単体に超強力な攻撃[Lv.]＆防御力をダウン(3ターン)<オーバーチャージで効果UP>＆中確率で即死効果<オーバーチャージで確率UP>",
+                    "ch": "",
+                    "en": "" 
+                },
+                "effect": {
+                    "lv-1": [{"mode":"enemy","mag":1200,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.5,0.625,0.75,0.875,1]}],
+                    "lv-2": [{"mode":"enemy","mag":1600,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.5,0.625,0.75,0.875,1]}],
+                    "lv-3": [{"mode":"enemy","mag":1800,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.5,0.625,0.75,0.875,1]}],
+                    "lv-4": [{"mode":"enemy","mag":1900,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.5,0.625,0.75,0.875,1]}],
+                    "lv-5": [{"mode":"enemy","mag":2000,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.5,0.625,0.75,0.875,1]}]
+                }
+            },
+            
+            "upgrade": {
+                "name": { 
+                    "jp": "ゲイ・ボルク,刺し穿つ死棘の槍",
+                    "ch": "",
+                    "en": ""
+                },
+                "card": "quick",
+                "description": {
+                    "jp": "自身に必中状態を付与(1ターン)▲ ＋ 敵単体に超強力な攻撃[Lv.]▲＆防御力をダウン(3ターン)<オーバーチャージで効果UP>＆中確率で即死効果▲<オーバーチャージで確率UP>",
+                    "ch": "",
+                    "en": "" 
+                },
+                "effect": {
+                    "lv-1": [{"mode":"self","ignore-evade":[1,"turn"]},{"mode":"enemy","mag":1600,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.6,0.7,0.8,0.9,1]}],
+                    "lv-2": [{"mode":"self","ignore-evade":[1,"turn"]},{"mode":"enemy","mag":2000,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.6,0.7,0.8,0.9,1]}],
+                    "lv-3": [{"mode":"self","ignore-evade":[1,"turn"]},{"mode":"enemy","mag":2200,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.6,0.7,0.8,0.9,1]}],
+                    "lv-4": [{"mode":"self","ignore-evade":[1,"turn"]},{"mode":"enemy","mag":2300,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.6,0.7,0.8,0.9,1]}],
+                    "lv-5": [{"mode":"self","ignore-evade":[1,"turn"]},{"mode":"enemy","mag":2400,"def":[-0.1,-0.15,-0.2,-0.25,-0.3],"instant-kill":[0.6,0.7,0.8,0.9,1]}]
+                }
+            }
+        },
+        
+        "setting": {
+            "image": {
+                "battle": {
+                    "servant-sprite": {
+                        "width": 0,
+                        "height": 148,
+                        "ground-point": 5
+                    }
+                }
+            }
+        }
+    }
+}

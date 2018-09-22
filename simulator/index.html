@@ -5,14 +5,20 @@
         <title>模擬器計算機</title>
         <script src="/fgo/data/js/jquery.min..js"></script>
         <script src="servant.class.js" type="text/javascript"></script>
+        <script src="enemy.class.js" type="text/javascript"></script>
         <script>
             var servant = {};
+            var enemy = {};
             var servant_list;
             var servant_list_json;
             var setServantSelect;
             var setServantToQueue;
+            var setServantToStatusArea;
+            var setEnemyToQueue;
+            var setEnemyToStatusArea;
             var getServantList;
             var getServantJson;
+            var getEnemyJson;
             var setLanguage = function(lang){
                 switch(lang){
                     case 'jp':
@@ -27,6 +33,110 @@
                 }
                 setServantSelect(servant_list_json,lang);
             };
+            
+            var createServantStatus = function(servant,seq){
+                var servant_status_div = $("<div></div>");
+                servant_status_div.attr({
+                    id: "servant-status-" +seq,
+                    class: "servant-status"
+                });
+                servant_status_div.css({
+                    "z-index": 600+seq,
+                    "left": 10+(10*(seq-1))+(200*(seq-1))
+                });
+                
+                //servant-status-bg
+                var servant_status_bg = $("<div></div>");
+                servant_status_bg.attr("class", "servant-status-bg");
+                var servant_status_bg_img = $("<img>");
+                servant_status_bg_img.attr({
+                    "src": "/fgo/img/servant/" +servant.getId() +"_front3.png",
+                    "class": "servant-status-bg-img"
+                });
+                servant_status_bg.append(servant_status_bg_img);
+                
+                //servant-status-buff
+                var servant_status_buff = $("<div></div");
+                servant_status_buff.attr({
+                    "class": "servant-status-buff"
+                });
+                
+                //servant-status-skill
+                var servant_status_skill = $("<div></div>");
+                servant_status_skill.attr({
+                    "class": "servant-status-skill"
+                });
+                //insert skill btn
+                for(i=0;i<3;i++){
+                    var servant_status_skill_btn = $("<div></div>");
+                    servant_status_skill_btn.attr("class", "servant-status-skill-btn");
+                    servant_status_skill_btn.css({
+                        "left": 8+(16*i)+(44*i)
+                    });
+                    
+                    var servant_status_skill_btn_bg = $("<div></div>");
+                    servant_status_skill_btn_bg.attr("class", "servant-status-skill-btn-bg");
+                    var servant_status_skill_btn_ico = $("<div></div>");
+                    servant_status_skill_btn_ico.attr("class", "servant-status-skill-btn-ico");
+                    var ico_img = $("<img>");
+                    ico_img.attr({
+                        "src": "/fgo/img/skill/" +servant.getActiveSkill().getSkill(i,(servant.getActiveSkill().getSkill(i).hasUpgrade() ? "upgrade" : undefined)).getIco(),
+                        "class": "skill-btn-ico"
+                    });
+                    ico_img.css({
+                        "width": 38,
+                        "height": 38
+                    });
+                    servant_status_skill_btn_ico.append(ico_img);
+                    
+                    //conbine skill btn
+                    servant_status_skill_btn.append(servant_status_skill_btn_bg);
+                    servant_status_skill_btn.append(servant_status_skill_btn_ico);
+                    servant_status_skill.append(servant_status_skill_btn);
+                }
+                
+                //conbine
+                servant_status_div.append(servant_status_bg);
+                servant_status_div.append(servant_status_buff);
+                servant_status_div.append(servant_status_skill);
+                
+                return servant_status_div;
+            };
+            
+            /*
+                        <div id="servant-status-1" class="servant-status">
+                            <div class="servant-status-bg">
+                                <img>
+                            </div>
+                            <div class="servant-status-buff">
+                            
+                            </div>
+                            <div class="servant-status-skill">
+                                <div class="servant-status-skill-btn">
+                                    <div class="servant-status-skill-btn-bg"></div>
+                                    <div class="servant-status-skill-btn-ico">
+                                        <img>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="servant-status-info">
+                                <div class="servant-status-info-class">
+                                    <div class="servant-status-info-class-img">
+                                    </div>
+                                    <div class="servant-status-info-class-name">
+                                    </div>
+                                </div>
+                                <div class="servant-status-info-hpnplvname">
+                                    <div class="servant-status-info-hp">
+                                    </div>
+                                    <div class="servant-status-info-np">
+                                    </div>
+                                    <div class="servant-status-info-lvname">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            */
             
             $(document).ready(function(){
                 setServantSelect = function(servant_list,lang){
@@ -67,7 +177,8 @@
                     XHR.onreadystatechange = function(){
                         if(this.readyState == 4 && this.status == 200){
                             try{
-                                var servant_json = XHR.response;
+                                if(!this.response) return;
+                                var servant_json = this.response;
                                 testjson = servant_json;
                                 servant[servant_json['servant']['property']['id']] = new Servant(servant_json);
                                 console.log('recived!');
@@ -88,11 +199,15 @@
                     XHR.send();
                 };
                 setServantToQueue = function(servant_id,seq){
+                    if(!servant_id) return;
                     //servant-queue
                     try{
                         //check servant in seq exist, delete if exist
                         if($('#servant-sprite-' +seq).length != 0){
                             $('#servant-sprite-' +seq).remove();
+                        }
+                        if($('#servant-status-' +seq).length != 0){
+                            $('#servant-status-' +seq).remove();
                         }
                         
                         if(servant_id in servant){
@@ -113,8 +228,8 @@
                             };
                             setPosition(img_path, img_target_height, img_ground_point, seq, function(img_element, orig_width, orig_height, target_height, gp, seq){ 
                                 var mag = target_height / orig_height;
-                                var top_fix = 335-(orig_height *mag);
-                                var left_fix = ((orig_width *mag)/10 *gp) *-1 +(136*(seq-1));
+                                var top_fix = 315-(orig_height *mag);
+                                var left_fix = ((orig_width *mag)/10 *gp) *-1 +(120*(seq-1));
                                 $('#servant-sprite-' +seq).css({
                                     top: top_fix,
                                     left: left_fix
@@ -125,7 +240,7 @@
                                 id: 'servant-sprite-' +seq,
                                 class:'servant-sprite'
                             });
-                            $(servant_sprite_div).css('z-index', 400+seq);
+                            $(servant_sprite_div).css('z-index', 200+seq);
                             var servant_sprite_img = $('<img>').attr({
                                 class: 'servant-sprite-img',
                                 src: img_path
@@ -137,6 +252,7 @@
                             $(servant_sprite_div).append(servant_sprite_img);
                             $('.servant-queue').append(servant_sprite_div);
                             
+                            $(".servant-status-area").append(createServantStatus(servant[servant_id],seq));
                         }
                         else{
                             getServantJson(servant_id,setServantToQueue,seq);
@@ -151,8 +267,8 @@
                     XHR.responseType = "json";
                     XHR.onreadystatechange = function(){
                         if(XHR.readyState == 4 && XHR.status == 200){
-                            console.log("received!");
-                            console.log(XHR.response);
+                            //console.log("received!");
+                            //console.log(this.response);
                             servant_list_json = XHR.response;
                             setServantSelect(servant_list_json,$('#setting_lang_select').val());
                         }
@@ -161,9 +277,98 @@
                     XHR.open("GET","/fgo/data/servant/servant.list.json");
                     XHR.send();
                 };
+                getEnemyJson = function(type = 'enemy', enemy_file_name ,callback =null ,seq){
+                    var XHR = new XMLHttpRequest();
+                    XHR.responseType = 'json';
+                    XHR.enemy_name = enemy_file_name;
+                    XHR.callback = callback;
+                    XHR.seq = seq;
+                    XHR.onreadystatechange = function(){
+                        if(this.readyState == 4 && this.status == 200){
+                            try{
+                                if(!this.response) return;
+                                
+                                enemy[this.enemy_name] = new Enemy(this.response);
+                                if(this.callback) this.callback();
+                            }
+                            catch(e){
+                                console.log(e);
+                            }
+                        }
+                        else if(this.readyState == 4 && this.status != 200){
+                            console.log(this.status);
+                        }
+                    };
+                    XHR.open('GET','/fgo/data/enemy/' +enemy_file_name +'.enemy');
+                    XHR.send();
+                };
+                setEnemyToQueue = function(type ='enemy', enemy_file_name, seq){
+                    if(!enemy_file_name) return;
+                    
+                    if($('#enemy-sprite-' +seq).length !=0){
+                        $('#enemy-sprite-' +seq).remove();
+                    }
+                    
+                    if(enemy_file_name in enemy){
+                        try{
+                            var img_width_orig,img_height_orig;
+                            var img_path = '/fgo/img/enemy/' +enemy_file_name +"_sprite.png";
+                            var img_target_height = enemy[enemy_file_name].getSetting().getBattleServantSprite().getHeight();
+                            var img_ground_point = enemy[enemy_file_name].getSetting().getBattleServantSprite().getGroundPoint();
+                            
+                            //preload image but not show on site, so cannot get img width and height now
+                            //it will fix css:left onload
+                            var setPosition = function(path, target_height, ground_point, seq, callback){
+                                let img = new Image();
+                                img.src = path;
+                                img.target_height = target_height;
+                                img.ground_point = ground_point;
+                                img.seq = seq;
+                                img.onload = function(){ callback(this, this.width, this.height, this.target_height, this.ground_point, this.seq); };
+                            };
+                            setPosition(img_path, img_target_height, img_ground_point, seq, function(img_element, orig_width, orig_height, target_height, gp, seq){ 
+                                var mag = target_height / orig_height;
+                                var top_fix = 315-(orig_height *mag);
+                                var right_fix = ((orig_width *mag)/10 *gp) *-1 +(120*(seq-1));
+                                $('#enemy-sprite-' +seq).css({
+                                    top: top_fix,
+                                    right: right_fix
+                                });
+                            });
+                            
+                            var enemy_sprite_div = $('<div></div>').attr({
+                                id: 'enemy-sprite-' +seq,
+                                class:'enemy-sprite'
+                            });
+                            $(enemy_sprite_div).css('z-index', 100+seq);
+                            var enemy_sprite_img = $('<img>').attr({
+                                class: 'enemy-sprite-img',
+                                src: img_path
+                            });
+                            $(enemy_sprite_img).css({
+                                height: img_target_height
+                            });
+                            $(enemy_sprite_img).click(function(){ console.log($(this).parent().css('z-index')); });
+                            $(enemy_sprite_div).append(enemy_sprite_img);
+                            $('.enemy-queue').append(enemy_sprite_div);
+                            
+                        }
+                        catch(e){
+                            console.log(e);
+                        }
+                    }
+                    else{
+                        getEnemyJson('enemy', 'choco_skelton', setEnemyToQueue.bind(this,type,enemy_file_name,seq),seq );
+                    }
+                };
+                setServantToStatusArea = function(servant_id,seq){
+                    var img_path = "/fgo/img/servant/" +servant_id +"_front3.png";
+                };
                 
                 getServantList();
-                //$('.servant-sprite')
+                setEnemyToQueue('enemy','choco_skelton',1);
+                setEnemyToQueue('enemy','choco_skelton',2);
+                setEnemyToQueue('enemy','choco_skelton',3);
             });
         </script>
         <style>
@@ -176,58 +381,170 @@
                 background-color: aquamarine;
                 opacity: 1;
             }
-            
             .scene {
                 width: inherit;
                 height: inherit;
                 position: relative;
             }
-            
-            .battle-bgimage {
+            .battle-bg {
                 width: 100%;
                 height: auto;
-                
                 position: absolute;
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
             }
             
+            .enemy-queue {
+                position: absolute;
+                width: 360px;
+                height: 315px;
+                z-index: 100;
+            }
+            .enemy-sprite {
+                position: absolute;
+                display: inline-block;
+            }
             .servant-queue {
                 position: absolute;
-                width: 408px;
-                height: 335px;
-                left: 470px;
+                width: 360px;
+                height: 315px;
+                left: 488px;
+                z-index: 200;
             }
-            
             .servant-sprite {
                 position: absolute;
                 display: inline-block;
             }
             
+            .servant-status-area {
+                position: absolute;
+                width: 660px;
+                height: 240px;
+                bottom: 0px;
+                z-index: 600;
+            }
+            .servant-status {
+                position: absolute;
+                width: 200px;
+                height: 220px;
+                bottom: 0px;
+                /*background-color: green;*/
+            }
+            .servant-status-bg {
+                position: absolute;
+                left: 5px;
+            }
+            .servant-status-bg-img {
+                width: 180px;
+            }
+            .servant-status-buff {
+                position: absolute;
+                width: 180px;
+                height: 20px;
+                top: 90px;
+                left: 5px;
+                /*background-color: blueviolet;*/
+            }
+            .servant-status-skill {
+                position: absolute;
+                width: 180px;
+                height: 44px;
+                top: 110px;
+                left: 5px;
+                /*background-color: crimson*/
+            }
+            .servant-status-skill-btn {
+                position: absolute;
+                width: 44px;
+                height: 44px;
+            }
+            .servant-status-skill-btn-bg {
+                position: absolute;
+                width: 44px;
+                height: 44px;
+                background-color: darkgray;
+                -moz-border-radius: 3px / 3px;
+                -webkit-border-radius: 3px / 3px;
+                border-radius: 3px / 3px;
+            }
+            .servant-status-skill-btn-ico {
+                position: absolute;
+                top: 3px;
+                left: 3px;
+            }
+            
             .allies-control-panel {
                 display: block;
             }
-            
             .allies-control-panel row {
                 display: inline-block;
             }
-            
         </style>
     </head>
     
     <body>
         <div class="container">
+            <!------------------- game container start ------------------------->
             <div class="game-container">
                 <div class="scene battle-scene">
-                    <div class="battle-bgimage">
-                        <img src="/fgo/img/grassland.jpg" style="width: inherit;">
+                    <div class="battle-bg">
+                        <img src="/fgo/img/grassland.jpg" style="width: 848px; height:480px">
                     </div>
+                    <!-- 敵人顯示區 -->
+                    <div class="enemy-queue">
+                        <!-- z index 100-->
+                    </div>
+                    
+                    <!--敵人狀態區-->
+                    <div class="enemy-status-area">
+                        <!-- z-index 300 -->
+                    </div>
+                    
+                    <!-- 我方人物顯示區 -->
                     <div class="servant-queue">
-                        <!-- z-index 400 -->
+                        <!-- z-index 200 -->
                     </div>
+                    
+                    <!--我方人物狀態區-->
+                    <div class="servant-status-area">
+                        <!-- z-index 600 -->
+                        <!-- template --
+                        <div id="servant-status-1" class="servant-status">
+                            <div class="servant-status-bg">
+                                <img>
+                            </div>
+                            <div class="servant-status-buff">
+                            
+                            </div>
+                            <div class="servant-status-skill">
+                            
+                            </div>
+                            <div class="servant-status-info">
+                                <div class="servant-status-info-class">
+                                    <div class="servant-status-info-class-img">
+                                    </div>
+                                    <div class="servant-status-info-class-name">
+                                    </div>
+                                </div>
+                                <div class="servant-status-info-hpnplvname">
+                                    <div class="servant-status-info-hp">
+                                    </div>
+                                    <div class="servant-status-info-np">
+                                    </div>
+                                    <div class="servant-status-info-lvname">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                    
+                    
                 </div>
             </div>
+            <!------------------- game container finish ------------------------->
+            
             
             <br>
             <!---------------------------------  控制台 Control panel ------------------------------------------->
@@ -259,10 +576,8 @@
                 </div>
             </div>
             <br><br>
-            <div class="scene">
-                <div class="battle-bgimage">
-                    <img src="../img/ss_test.png" style="width:848; height:auto">
-                </div>
+            <div class="battle-bg">
+                <img src="../img/ss_test.png" style="width:848; height:auto">
             </div>
         </div>
         <p id="servant_name"></p>
