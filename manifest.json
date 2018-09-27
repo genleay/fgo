@@ -1,0 +1,14 @@
+{
+  "short_name": "FGO Simulator",
+  "name": "Fate/Grand Order Simulator",
+  "icons": [
+    {
+      "src": "/fgo/img/class/shielder_gold.png",
+      "sizes": "74x74",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/fgo/simulator/index.html",
+  "display": "fullscreen",
+  "orientation": "landscape"
+}

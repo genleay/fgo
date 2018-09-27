@@ -17,7 +17,7 @@ class Servant{
         this.getId = function(){ return servant_json['servant']['property']['id']; };
         this.getName = function(lang = 'jp'){ return servant_json['servant']['property']['name'][lang]; };
         this.getKurasu = function(lang = 'type'){ return servant_json['servant']['property']['class'][lang]; };
-        this.gerRare = function(){ return servant_json['servant']['property']['rare']; };
+        this.getRare = function(){ return servant_json['servant']['property']['rare']; };
         this.getCost = function(){ return servant_json['servant']['property']['cost']; };
         this.getHp = function(lv = 'lv-1'){ return servant_json['servant']['property']['hp'][lv]; };
         this.getAtk = function(lv = 'lv-1'){ return servant_json['servant']['property']['atk'][lv]; };

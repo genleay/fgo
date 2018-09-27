@@ -24,9 +24,10 @@
             "image": {
                 "battle": {
                     "servant-sprite": {
+                        "filename": "choco_skelton_sprite.png",
                         "width": 0,
                         "height": 148,
-                        "ground-point": 3
+                        "ground-point": 2
                     }
                 }
             }

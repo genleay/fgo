@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Auto Download</title>
+        <script src="/fgo/data/js/jquery.min.js"></script>
+        <script>
+            var classname = ["","saber","lancer","archer","rider","caster","assassin","berserker","shielder","ruler","alterego",
+                             "avenger","","","","","","","","","",
+                            "","","mooncancer","","foreigner"];
+            var lv = ["","","bronze","silver","gold",""];
+
+            $(document).ready(function(){
+                for(i=1;i<=11;i++){
+                    for(j=2;j<=4;j++){
+                        var a = $("<a></a>");
+                        a.attr({
+                            "href": "http://kazemai.github.io/fgo-vz/common/images/icon/class/class_" +i +"_" +j +".png",
+                            "download": classname[i] +"_" +lv[j]
+                        });
+
+                        var img = $("<img>");
+                        img.attr({
+                            "src": "http://kazemai.github.io/fgo-vz/common/images/icon/class/class_" +i +"_" +j +".png"
+                        });
+
+                        a.append(img);
+
+                        $("#showimg").append(a);
+                    }
+                }
+            
+                for(j=2;j<=4;j++){
+                    var a = $("<a></a>");
+                    a.attr({
+                        "href": "http://kazemai.github.io/fgo-vz/common/images/icon/class/class_23_" +j +".png",
+                        "download": classname[23] +"_" +lv[j]
+                    });
+
+                    var img = $("<img>");
+                    img.attr({
+                        "src": "http://kazemai.github.io/fgo-vz/common/images/icon/class/class_23_" +j +".png"
+                    });
+
+                    a.append(img);
+
+                    $("#showimg").append(a);
+                }
+            
+                for(j=2;j<=4;j++){
+                    var a = $("<a></a>");
+                    a.attr({
+                        "href": "http://kazemai.github.io/fgo-vz/common/images/icon/class/class_25_" +j +".png",
+                        "download": classname[25] +"_" +lv[j]
+                    });
+
+                    var img = $("<img>");
+                    img.attr({
+                        "src": "http://kazemai.github.io/fgo-vz/common/images/icon/class/class_25_" +j +".png"
+                    });
+
+                    a.append(img);
+
+                    $("#showimg").append(a);
+                }
+            });
+        </script>
+    </head>
+    
+    <body>
+        <div id="showimg">
+            
+        </div>
+    </body>
+</html>

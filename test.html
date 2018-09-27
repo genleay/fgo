@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>test</title>
+        <style>
+            .main {
+                overflow: hidden;
+                background-color: hotpink;
+                width: 100vw;
+                height: 100vh;
+            }
+            .main > .sub {
+                position: absolute;
+                background-color: aliceblue;
+                width: 75%;
+                height: 50%;
+                top: 12.5%;
+                left: 12.5%;
+            }
+            .main > .sub > .img-container {
+                position: absolute;
+                display: inline-block;
+                height: 50%;
+            }
+            .main > .sub > .img-container > img {
+                position: relative;
+                display: inline-block;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="sub">
+                <div class="img-container">
+                    <img class=img src="/fgo/img/servant/002_sprite3.png">
+                </div>
+                <div class="img-container">
+                    <img class=img src="/fgo/img/servant/011_sprite3.png">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

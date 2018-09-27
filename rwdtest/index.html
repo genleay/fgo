@@ -1,0 +1,241 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="apple-touch-icon" href="/fgo/img/class/shielder_gold.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/fgo/img/class/shielder_gold.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/fgo/img/class/shielder_gold.png">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="manifest" href="/fgo/manifest.json">
+        <title>RWD test</title>
+        <script src="/fgo/data/js/jquery.min.js"></script>
+        <script>
+            var getCurrentWidth = function(){
+                return (window.innerWidth > 0) ? window.innerWidth : screen.width;
+            };
+            var getCurrentHeight = function(){
+                return (window.innerHeight > 0) ? window.innerHeight : screen.height;
+            };
+            var enterFullscreen = function(element){
+                if (!document.fullscreenElement &&    // alternative standard method
+                    !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
+                    if (element.requestFullscreen) {
+                        element.requestFullscreen();
+                    } else if (element.msRequestFullscreen) {
+                        element.msRequestFullscreen();
+                    } else if (element.mozRequestFullScreen) {
+                        element.mozRequestFullScreen();
+                    } else if (element.webkitRequestFullscreen) {
+                        element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                    }
+                }
+            };
+            var exitFullscreen = function(element =undefined){
+                if(!(!document.fullscreenElement &&    // alternative standard method
+                     !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement )){
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            };
+                    
+            
+            $(document).ready(function(){
+                /*
+                $(".scene-bg").click(function(){
+                    var toggleFullscreen = function(){
+                        gamecontent = document.getElementById("main");
+    
+                        if (!document.fullscreenElement &&    // alternative standard method
+                            !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
+                            if (gamecontent.requestFullscreen) {
+                                gamecontent.requestFullscreen();
+                            } else if (gamecontent.msRequestFullscreen) {
+                                gamecontent.msRequestFullscreen();
+                            } else if (gamecontent.mozRequestFullScreen) {
+                                gamecontent.mozRequestFullScreen();
+                            } else if (gamecontent.webkitRequestFullscreen) {
+                                gamecontent.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                            }
+                        } 
+                        else {
+                            if (document.exitFullscreen) {
+                                document.exitFullscreen();
+                            } else if (document.msExitFullscreen) {
+                                document.msExitFullscreen();
+                            } else if (document.mozCancelFullScreen) {
+                                document.mozCancelFullScreen();
+                            } else if (document.webkitExitFullscreen) {
+                                document.webkitExitFullscreen();
+                            }
+                        }
+                    };
+
+                    toggleFullscreen();
+                });
+                */
+                
+                $("#enter_fullscreen_btn").click(function(){
+                    gamecontent = document.getElementById("main");
+                    enterFullscreen();
+                });
+                
+                $("#exit_fullscreen_btn").click(function(){
+                    gamecontent = document.getElementById("main");
+                    exitFullscreen();
+                });
+                
+                exitFullscreen();
+                $("#show_width").html("<span>SCREEN_WIDTH= " +getCurrentWidth() +", SCREEN_HEIGHT= " +getCurrentHeight() +"</span>");
+                if(navigator.standalone == true) {
+                    enterFullscreen();
+                }
+            });
+            
+            $(window).resize(function(){
+                $("#show_width").html("<span>SCREEN_WIDTH= " +getCurrentWidth() +", SCREEN_HEIGHT= " +getCurrentHeight() +"</span>");
+            });
+        </script>
+        
+        <style>
+            body {
+                margin: 0;
+            }
+            .game-container {
+                display: block;
+                position: relative;
+                overflow: hidden;
+            }
+            .game-container > .scene {
+                background-color: aqua;
+                max-width: 100%;
+                max-height: 100%;
+            }
+            .game-container > .scene > .scene-bg {
+                max-width: 100%;
+                max-height: 100%;
+            }
+            .game-container > .scene > .scene-bg > .scene-bg-img {
+                max-width: 100%;
+                /*max-height: 100vh;*/
+                object-fit: cover;
+            }
+            .game-container .btn {
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select:none;
+                user-select:none;
+                -o-user-select:none;
+            }
+            .game-container > #show_width {
+                display: inline-block;
+                position: absolute;
+                background-color: chartreuse;
+                width: 100%;
+                bottom: 0;
+                z-index: 9999;
+            }
+            
+            /* mobile first css */
+            /* 直向 */
+            @media only screen and (orientation: portrait){
+                .game-container {
+                    /* keep 16:9 */
+                    width: 100vw;
+                    height: 56.25vw;
+                }
+                .game-container > .scene {
+                    
+                }
+            }
+            /* 橫向 */
+            @media only screen and (orientation: landscape) {
+                .game-container {
+                    /* keep 16:9 */
+                    width: 177.77vh;
+                    height: 100vh;
+                }
+                .game-container > .scene {
+                    
+                }
+                
+                /************************************************/
+                /* 橫向且全螢幕時 */
+                /* 針對18:9以上裝置延展畫面 */
+                .game-container:-moz-full-screen {
+                    width: 100vw;
+                    height: 100vh;
+                }
+                .game-container:-webkit-full-screen {
+                    width: 100vw;
+                    height: 100vh;
+                }
+                .game-container:fullscreen {
+                    width: 100vw;
+                    height: 100vh;
+                }
+                .game-container:-moz-full-screen > #show_width {
+                    background-color: red;
+                }
+                .game-container:-webkit-full-screen > #show_width {
+                    background-color: orange;
+                }
+                .game-container:fullscreen > #show_width {
+                    background-color: yellow;
+                }
+            }
+            /*Web App (主畫面啟動)(Android?)*/
+            @media only screen and (display-mode: fullscreen) and (orientation: landscape) {
+                /* hide everything without game-container */
+                body >.content >:not(.game-container), body>:not(.content) {
+                    display: none;
+                }
+                /* 針對18:9以上裝置延展畫面 */
+                .game-container {
+                    width: 100vw;
+                    height: 100vh;
+                }
+                .game-container > #show_width {
+                    background-color: blue;
+                }
+            }
+            
+            /* override when desktop */
+            @media only screen and (min-width: 849px) {
+                .game-container {
+                    width: 848px;
+                    height: 480px;
+                }
+                .game-container > #show_width {
+                    background-color: hotpink;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="content">
+            <div id="main" class="game-container">
+                <div class="scene">
+                    <div class="scene-bg">
+                        <img class="scene-bg-img" src="/fgo/img/grassland.jpg">
+                        <div id="exit_fullscreen_btn" class="btn" unselectable="on" onselectstart="return false;" 
+                             style="position:absolute;right:0;top:0;background-color:red;color:white;font-size:24pt">EXIT</div>
+                    </div>
+                </div>
+                
+                <div id="show_width"></div>
+            </div>
+            <br>
+            <input type="button" id="enter_fullscreen_btn" value="FULLSCREEN">
+        
+        </div>
+
+    </body>
+</html>

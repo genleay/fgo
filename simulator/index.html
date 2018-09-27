@@ -2,8 +2,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="/fgo/img/class/shielder_gold.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/fgo/img/class/shielder_gold.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/fgo/img/class/shielder_gold.png">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="manifest" href="/fgo/manifest.json">
         <title>模擬器計算機</title>
-        <script src="/fgo/data/js/jquery.min..js"></script>
+        <script src="/fgo/data/js/jquery.min.js"></script>
         <script src="servant.class.js" type="text/javascript"></script>
         <script src="enemy.class.js" type="text/javascript"></script>
         <script>
@@ -19,6 +25,7 @@
             var getServantList;
             var getServantJson;
             var getEnemyJson;
+            var gamecontent = $("#main.game-container");
             var setLanguage = function(lang){
                 switch(lang){
                     case 'jp':
@@ -34,7 +41,90 @@
                 setServantSelect(servant_list_json,lang);
             };
             
-            var createServantStatus = function(servant,seq){
+            // w h
+            var getCurrentWidth = function(){
+                return (window.innerWidth > 0) ? window.innerWidth : screen.width;
+            };
+            var getCurrentHeight = function(){
+                return (window.innerHeight > 0) ? window.innerHeight : screen.height;
+            };
+            // w h
+            
+            // fullscreen function---------------------------------------------------
+            var enterFullscreen = function(element){
+                if (!document.fullscreenElement &&    // alternative standard method
+                    !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
+                    if (element.requestFullscreen) {
+                        element.requestFullscreen();
+                    } else if (element.msRequestFullscreen) {
+                        element.msRequestFullscreen();
+                    } else if (element.mozRequestFullScreen) {
+                        element.mozRequestFullScreen();
+                    } else if (element.webkitRequestFullscreen) {
+                        element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                    }
+                }
+            };
+            var exitFullscreen = function(element =undefined){
+                if(!(!document.fullscreenElement &&    // alternative standard method
+                     !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement )){
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            };
+            // fullscreen function-----------------------------------------------
+
+            // servant ui-----------------------------------------
+            var createServantSprite = function(this_servant,seq){
+                var img_path = '/fgo/img/servant/' +this_servant.getId() +"_sprite3.png";
+                var img_target_height = this_servant.getSetting().getBattleServantSprite().getHeight();
+                var img_ground_point = this_servant.getSetting().getBattleServantSprite().getGroundPoint();
+                
+                //set onload function to fix position when shown(left or right);
+                var createImage = function(filename, callback){
+                    var img = new Image();
+                    img.src = img_path;
+                    img.ground_point = img_ground_point;
+                    img.seq = seq;
+                    img.onload = function(){ callback(this,this.ground_point,this.seq); };
+                    return img;
+                };
+                var setPosition = function(element,ground_point=0,seq){
+                    var img_width = $(element).width();
+                    var queue_width = $(element).parent().parent().width();
+                    var left_value = 32*(seq-1) -(((img_width/10)*ground_point)/queue_width)*100;
+                    $(element).parent().css({
+                        bottom: 0,
+                        left: left_value +"%"
+                    });
+                };
+                
+                var servant_sprite_div = $('<div></div>');
+                servant_sprite_div.attr({
+                    id: 'servant-sprite-' +seq,
+                    class:'servant-sprite'
+                });
+                servant_sprite_div.css({
+                    height: (img_target_height/(480*0.66))*100 +"%"
+                });
+                var servant_sprite_img = $(createImage(img_path,setPosition));
+                servant_sprite_img.attr({
+                    class: 'servant-sprite-img'
+                });
+                servant_sprite_img.click(function(){ console.log($(this).parent().css('z-index')); });
+                //combine
+                servant_sprite_div.append(servant_sprite_img);
+                return servant_sprite_div;
+            };
+            
+            var createServantStatus = function(this_servant,seq){
                 var servant_status_div = $("<div></div>");
                 servant_status_div.attr({
                     id: "servant-status-" +seq,
@@ -42,15 +132,17 @@
                 });
                 servant_status_div.css({
                     "z-index": 600+seq,
-                    "left": 10+(10*(seq-1))+(200*(seq-1))
+                    left: 32*(seq-1) +2*(seq-1) +"%"
                 });
                 
                 //servant-status-bg
                 var servant_status_bg = $("<div></div>");
                 servant_status_bg.attr("class", "servant-status-bg");
+                servant_status_bg.css({
+                });
                 var servant_status_bg_img = $("<img>");
                 servant_status_bg_img.attr({
-                    "src": "/fgo/img/servant/" +servant.getId() +"_front3.png",
+                    "src": "/fgo/img/servant/" +this_servant.getId() +"_front3.png",
                     "class": "servant-status-bg-img"
                 });
                 servant_status_bg.append(servant_status_bg_img);
@@ -71,7 +163,7 @@
                     var servant_status_skill_btn = $("<div></div>");
                     servant_status_skill_btn.attr("class", "servant-status-skill-btn");
                     servant_status_skill_btn.css({
-                        "left": 8+(16*i)+(44*i)
+                        left: 7.5 +(12*i) +(22.33*i) +"%"
                     });
                     
                     var servant_status_skill_btn_bg = $("<div></div>");
@@ -80,12 +172,8 @@
                     servant_status_skill_btn_ico.attr("class", "servant-status-skill-btn-ico");
                     var ico_img = $("<img>");
                     ico_img.attr({
-                        "src": "/fgo/img/skill/" +servant.getActiveSkill().getSkill(i,(servant.getActiveSkill().getSkill(i).hasUpgrade() ? "upgrade" : undefined)).getIco(),
+                        "src": "/fgo/img/skill/" +this_servant.getActiveSkill().getSkill(i,(this_servant.getActiveSkill().getSkill(i).hasUpgrade() ? "upgrade" : undefined)).getIco(),
                         "class": "skill-btn-ico"
-                    });
-                    ico_img.css({
-                        "width": 38,
-                        "height": 38
                     });
                     servant_status_skill_btn_ico.append(ico_img);
                     
@@ -95,14 +183,59 @@
                     servant_status_skill.append(servant_status_skill_btn);
                 }
                 
+                //servant-status-info
+                var ss_info = $("<div></div>");
+                ss_info.attr({
+                    class: "servant-status-info"
+                });
+                var ss_info_class = $("<div></div>");
+                ss_info_class.attr({
+                    class: "servant-status-info-class"
+                });
+                var ss_info_class_img = $("<div></div>");
+                ss_info_class_img.attr({
+                    class: "servant-status-info-class-img"
+                });
+                var bsg = function(rare){
+                    if(rare <= 2){
+                        return "bronze";
+                    }
+                    else if(rare == 3){
+                        return "silver";
+                    }
+                    else if(rare >= 4){
+                        return "gold";
+                    }
+                };
+                var createImage = function(img_path,callback){
+                    var img = new Image();
+                    img.src = img_path;
+                    img.rare = this_servant.getRare();
+                    img.onload = function(){ callback(this); };
+                    return img;
+                };
+                var img_path = "/fgo/img/class/" +this_servant.getKurasu() +"_" +bsg(this_servant.getRare()) +".png";
+                var class_img = $(createImage(img_path,setClassnameFont));
+                ss_info_class_img.append(class_img);
+                var ss_info_class_name = $("<div></div>");
+                ss_info_class_name.attr({
+                    class: "servant-status-info-class-name"
+                });
+                ss_info_class_name.html("<span>" +this_servant.getKurasu().toUpperCase() +"</span>");
+                ss_info_class.append(ss_info_class_img);
+                ss_info_class.append(ss_info_class_name);
+                
+                ss_info.append(ss_info_class);
+                
                 //conbine
                 servant_status_div.append(servant_status_bg);
                 servant_status_div.append(servant_status_buff);
                 servant_status_div.append(servant_status_skill);
+                servant_status_div.append(ss_info);
                 
                 return servant_status_div;
             };
-            
+            // servant ui -------------------------------------------
             /*
                         <div id="servant-status-1" class="servant-status">
                             <div class="servant-status-bg">
@@ -122,6 +255,7 @@
                             <div class="servant-status-info">
                                 <div class="servant-status-info-class">
                                     <div class="servant-status-info-class-img">
+                                        <img>
                                     </div>
                                     <div class="servant-status-info-class-name">
                                     </div>
@@ -138,7 +272,78 @@
                         </div>
             */
             
+            // --------------------------enemy ui ---------------------------
+            var createEnemySprite = function(this_enemy,seq){
+                try{
+                    var img_path = '/fgo/img/enemy/' +this_enemy.getSetting().getBattleEnemySprite().getFilename();
+                    var img_target_height = this_enemy.getSetting().getBattleEnemySprite().getHeight();
+                    var img_ground_point = this_enemy.getSetting().getBattleEnemySprite().getGroundPoint();
+
+                    //preload image but not show on site, so cannot get img width and height now
+                    //it will fix css:left onload
+                    var createImage = function(filename, callback){
+                        var img = new Image();
+                        img.src = img_path;
+                        img.ground_point = img_ground_point;
+                        img.seq = seq;
+                        img.onload = function(){ callback(this,this.ground_point,this.seq); };
+                        return img;
+                    };
+                    var setPosition = function(element,ground_point=0,seq){
+                        var img_width = $(element).width();
+                        var queue_width = $(element).parent().parent().width();
+                        var left_value = 6 +32*(3-seq) +(((img_width/10)*ground_point)/queue_width)*100;
+                        $(element).parent().css({
+                            bottom: 0,
+                            left: left_value +"%"
+                        });
+                    };
+                    var enemy_sprite_div = $('<div></div>');
+                    enemy_sprite_div.attr({
+                        id: 'enemy-sprite-' +seq,
+                        class:'enemy-sprite'
+                    });
+                    enemy_sprite_div.css({
+                        height: (img_target_height/(480*0.66))*100 +"%"
+                    });
+                    var enemy_sprite_img = $(createImage(img_path,setPosition));
+                    enemy_sprite_img.attr({
+                        class: 'enemy-sprite-img'
+                    });
+                    enemy_sprite_img.click(function(){ console.log($(this).parent().css('z-index')); });
+                    enemy_sprite_div.append(enemy_sprite_img);
+                    return enemy_sprite_div;
+                }
+                catch(e){
+                    console.log(e);
+                }
+            };
+            
+            var createEnemyStatus = function(enemy){
+                
+            };
+            //  ---------------------------enemy ui--------------------------
+            
+            // --------------------------- ui function -----------------------
+            var setClassnameFont = function(img_dom,img_height){
+                var img = $(img_dom);
+                var classname = img.parent().siblings(".servant-status-info-class-name");
+                var span = $(classname.find("span")[0]);
+                var w_mag;
+                var h_mag = (img.height()*0.25)/span.height();
+                span.css({
+                    "-webkit-transform": "scale(1," +h_mag +")",
+                    transform: "scale(1," +h_mag +")"
+                });
+            };
+            
+            // --------------------------- ui funtion -----------------------
+            
+            // -----------------------------ready ----------------------------
             $(document).ready(function(){
+                $("#enter_fullscreen_btn").click(function(){
+                    enterFullscreen(document.getElementById("main"));
+                });
                 setServantSelect = function(servant_list,lang){
                     var select_element = document.createElement("select");
                     var option_element = document.createElement("option");
@@ -211,48 +416,17 @@
                         }
                         
                         if(servant_id in servant){
-                            var img_width_orig,img_height_orig;
-                            var img_path = '/fgo/img/servant/' +servant_id +"_sprite3.png";
-                            var img_target_height = servant[servant_id].getSetting().getBattleServantSprite().getHeight();
-                            var img_ground_point = servant[servant_id].getSetting().getBattleServantSprite().getGroundPoint();
-                            
-                            //preload image but not show on site, so cannot get img width and height now
-                            //it will fix css:left onload
-                            var setPosition = function(path, target_height, ground_point, seq, callback){
-                                let img = new Image();
-                                img.src = path;
-                                img.target_height = target_height;
-                                img.ground_point = ground_point;
-                                img.seq = seq;
-                                img.onload = function(){ callback(this, this.width, this.height, this.target_height, this.ground_point, this.seq); };
-                            };
-                            setPosition(img_path, img_target_height, img_ground_point, seq, function(img_element, orig_width, orig_height, target_height, gp, seq){ 
-                                var mag = target_height / orig_height;
-                                var top_fix = 315-(orig_height *mag);
-                                var left_fix = ((orig_width *mag)/10 *gp) *-1 +(120*(seq-1));
-                                $('#servant-sprite-' +seq).css({
-                                    top: top_fix,
-                                    left: left_fix
-                                });
+                            var sprite_div = createServantSprite(servant[servant_id],seq);
+                            sprite_div.css({
+                                "z-index": 200+seq
+                            });
+                            var status_div = createServantStatus(servant[servant_id],seq);
+                            status_div.css({
+                                "z-index": 600+seq
                             });
                             
-                            var servant_sprite_div = $('<div></div>').attr({
-                                id: 'servant-sprite-' +seq,
-                                class:'servant-sprite'
-                            });
-                            $(servant_sprite_div).css('z-index', 200+seq);
-                            var servant_sprite_img = $('<img>').attr({
-                                class: 'servant-sprite-img',
-                                src: img_path
-                            });
-                            $(servant_sprite_img).css({
-                                height: img_target_height
-                            });
-                            $(servant_sprite_img).click(function(){ console.log($(this).parent().css('z-index')); });
-                            $(servant_sprite_div).append(servant_sprite_img);
-                            $('.servant-queue').append(servant_sprite_div);
-                            
-                            $(".servant-status-area").append(createServantStatus(servant[servant_id],seq));
+                            $(".servant-queue").append(sprite_div);
+                            $(".servant-status-area").append(status_div);
                         }
                         else{
                             getServantJson(servant_id,setServantToQueue,seq);
@@ -311,185 +485,434 @@
                     
                     if(enemy_file_name in enemy){
                         try{
-                            var img_width_orig,img_height_orig;
-                            var img_path = '/fgo/img/enemy/' +enemy_file_name +"_sprite.png";
-                            var img_target_height = enemy[enemy_file_name].getSetting().getBattleServantSprite().getHeight();
-                            var img_ground_point = enemy[enemy_file_name].getSetting().getBattleServantSprite().getGroundPoint();
-                            
-                            //preload image but not show on site, so cannot get img width and height now
-                            //it will fix css:left onload
-                            var setPosition = function(path, target_height, ground_point, seq, callback){
-                                let img = new Image();
-                                img.src = path;
-                                img.target_height = target_height;
-                                img.ground_point = ground_point;
-                                img.seq = seq;
-                                img.onload = function(){ callback(this, this.width, this.height, this.target_height, this.ground_point, this.seq); };
-                            };
-                            setPosition(img_path, img_target_height, img_ground_point, seq, function(img_element, orig_width, orig_height, target_height, gp, seq){ 
-                                var mag = target_height / orig_height;
-                                var top_fix = 315-(orig_height *mag);
-                                var right_fix = ((orig_width *mag)/10 *gp) *-1 +(120*(seq-1));
-                                $('#enemy-sprite-' +seq).css({
-                                    top: top_fix,
-                                    right: right_fix
-                                });
+                            var div = createEnemySprite(enemy[enemy_file_name],seq);
+                            div.css({
+                                "z-index": 100+seq
                             });
-                            
-                            var enemy_sprite_div = $('<div></div>').attr({
-                                id: 'enemy-sprite-' +seq,
-                                class:'enemy-sprite'
-                            });
-                            $(enemy_sprite_div).css('z-index', 100+seq);
-                            var enemy_sprite_img = $('<img>').attr({
-                                class: 'enemy-sprite-img',
-                                src: img_path
-                            });
-                            $(enemy_sprite_img).css({
-                                height: img_target_height
-                            });
-                            $(enemy_sprite_img).click(function(){ console.log($(this).parent().css('z-index')); });
-                            $(enemy_sprite_div).append(enemy_sprite_img);
-                            $('.enemy-queue').append(enemy_sprite_div);
-                            
+                            $(".enemy-queue").append(div);
                         }
                         catch(e){
                             console.log(e);
                         }
                     }
                     else{
-                        getEnemyJson('enemy', 'choco_skelton', setEnemyToQueue.bind(this,type,enemy_file_name,seq),seq );
+                        getEnemyJson('enemy', enemy_file_name, setEnemyToQueue.bind(this,type,enemy_file_name,seq),seq);
                     }
                 };
-                setServantToStatusArea = function(servant_id,seq){
-                    var img_path = "/fgo/img/servant/" +servant_id +"_front3.png";
-                };
+                $(window).resize(function(){
+                    $("#show_width").html("<span>SCREEN_WIDTH= " +getCurrentWidth() +", SCREEN_HEIGHT= " +getCurrentHeight() +"</span>");
+                    for(i=0;i<$(".servant-status-info-class-img").length;i++){
+                        setClassnameFont($($(".servant-status-info-class-img")[i]).find("img")[0]);
+                    }
+                });
                 
                 getServantList();
                 setEnemyToQueue('enemy','choco_skelton',1);
                 setEnemyToQueue('enemy','choco_skelton',2);
                 setEnemyToQueue('enemy','choco_skelton',3);
+                $("#show_width").html("<span>SCREEN_WIDTH= " +getCurrentWidth() +", SCREEN_HEIGHT= " +getCurrentHeight() +"</span>");
             });
+            
+            
         </script>
         <style>
-            .game-container {
-                width: 848px;
-                height: 480px;
-                overflow: hidden;
-                border-width: medium;
-                border-color: gray;
-                background-color: aquamarine;
-                opacity: 1;
-            }
-            .scene {
-                width: inherit;
-                height: inherit;
-                position: relative;
-            }
-            .battle-bg {
-                width: 100%;
-                height: auto;
-                position: absolute;
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
+            @font-face {
+                font-family: "MyFont";
+                src: url("/fgo/font/ArchivoNarrow-Bold.otf") format("opentype"),
+                     url("/fgo/font/ArchivoNarrow-Bold.ttf") format('truetype');
             }
             
-            .enemy-queue {
-                position: absolute;
-                width: 360px;
-                height: 315px;
-                z-index: 100;
+            body {
+                margin: 0;
             }
-            .enemy-sprite {
+            .game-container {
+                display: flex;
+                position: relative;
+                overflow: hidden;
+            }
+            .game-container > .scene > :not(.scene-bg) {
                 position: absolute;
+            }
+            .game-container > .scene {
                 display: inline-block;
-            }
-            .servant-queue {
                 position: absolute;
-                width: 360px;
-                height: 315px;
-                left: 488px;
+                background-color: aqua;
+                max-width: 100%;
+                max-height: 100%;
+            }
+            .game-container > .scene > .scene-bg {
+                max-width: 100%;
+                max-height: 100%;
+            }
+            .game-container > .scene > .scene-bg > .scene-bg-img {
+                max-width: 100%;
+                object-fit: cover;
+            }
+            /********************** servant css **********************************/
+            .game-container > .scene > .servant-queue {
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 40%;
+                height: 62.5%;
                 z-index: 200;
             }
-            .servant-sprite {
-                position: absolute;
+            .game-container > .scene > .servant-queue > .servant-sprite {
                 display: inline-block;
-            }
-            
-            .servant-status-area {
                 position: absolute;
-                width: 660px;
-                height: 240px;
-                bottom: 0px;
+            }
+            .game-container > .scene > .servant-queue > .servant-sprite > img.servant-sprite-img {
+                position: relative;
+                display: inline-block;
+                height: 100%;
+            }
+            .game-container > .scene > .servant-status-area {
+                position: absolute;
+                width: 75%;
+                height: 45%;
+                left: 0;
+                bottom: 0;
                 z-index: 600;
+                /*background-color: aqua;*/
             }
-            .servant-status {
+            .game-container > .scene > .servant-status-area 
+            > .servant-status {
                 position: absolute;
-                width: 200px;
-                height: 220px;
-                bottom: 0px;
-                /*background-color: green;*/
+                width: 32%;
+                height: 100%;
+                /*background-color: pink;*/
             }
-            .servant-status-bg {
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-bg {
                 position: absolute;
-                left: 5px;
+                width: 95%;
+                left: 5%;
+                height: "auto";
             }
-            .servant-status-bg-img {
-                width: 180px;
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-bg > img.servant-status-bg-img {
+                position: relative;
+                width: 100%;
+                height: auto;
             }
-            .servant-status-buff {
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-buff {
+            }
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-skill {
                 position: absolute;
-                width: 180px;
-                height: 20px;
-                top: 90px;
-                left: 5px;
-                /*background-color: blueviolet;*/
+                width: 90%;
+                height: 21%;
+                top: 50%;
+                left: 5%;
+                /*background-color: purple;*/
             }
-            .servant-status-skill {
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-skill > .servant-status-skill-btn {
                 position: absolute;
-                width: 180px;
-                height: 44px;
-                top: 110px;
-                left: 5px;
-                /*background-color: crimson*/
+                width: 24.5%;
+                height: 100%;
             }
-            .servant-status-skill-btn {
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-skill > .servant-status-skill-btn > .servant-status-skill-btn-bg {
                 position: absolute;
-                width: 44px;
-                height: 44px;
+                width: 100%;
+                height: 100%;
+                border-radius: 10%;
+                box-shadow: 0px 0px 5px 2px #000000A0;
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#bfbfbf+0,d3d3d3+43,6b6b6b+56,bfbfbf+100 */
+                background: #bfbfbf; /* Old browsers */
+                background: -moz-linear-gradient(top, #bfbfbf 0%, #d3d3d3 43%, #6b6b6b 56%, #bfbfbf 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(top, #bfbfbf 0%,#d3d3d3 43%,#6b6b6b 56%,#bfbfbf 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to bottom, #bfbfbf 0%,#d3d3d3 43%,#6b6b6b 56%,#bfbfbf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfbfbf', endColorstr='#bfbfbf',GradientType=0 ); /* IE6-9 */
             }
-            .servant-status-skill-btn-bg {
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-skill > .servant-status-skill-btn > .servant-status-skill-btn-ico {
                 position: absolute;
-                width: 44px;
-                height: 44px;
-                background-color: darkgray;
-                -moz-border-radius: 3px / 3px;
-                -webkit-border-radius: 3px / 3px;
-                border-radius: 3px / 3px;
+                width: 90%;
+                height: 90%;
+                top: 5%;
+                left: 5%
             }
-            .servant-status-skill-btn-ico {
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-skill > .servant-status-skill-btn > .servant-status-skill-btn-ico > img {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-info {
                 position: absolute;
-                top: 3px;
-                left: 3px;
+                width: 100%;
+                height: 29%;
+                top: 71%;
+                background-color: aqua;
+            }
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-info > .servant-status-info-class {
+                position: absolute;
+                width: 29%;
+                height: 100%;
+                left: 6%;
+            }
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-info > .servant-status-info-class > .servant-status-info-class-img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: 611;
+            }
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-info > .servant-status-info-class > .servant-status-info-class-img > img {
+                position: relative;
+                height: 100%;
+                width: auto;
+            }
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-info > .servant-status-info-class > .servant-status-info-class-name {
+                font-family: "MyFont";
+                position: absolute;
+                bottom: 0;
+                height: 25%;
+                z-index: 612;
+            }
+            .game-container > .scene > .servant-status-area 
+            > .servant-status > .servant-status-info > .servant-status-info-class > .servant-status-info-class-name > span {
+                position: relative;
+                display : inline-block;
+                font-size: 12px;
+            }
+            /*
+                        <div id="servant-status-1" class="servant-status">
+                            <div class="servant-status-bg">
+                                <img>
+                            </div>
+                            <div class="servant-status-buff">
+                            
+                            </div>
+                            <div class="servant-status-skill">
+                                <div class="servant-status-skill-btn">
+                                    <div class="servant-status-skill-btn-bg"></div>
+                                    <div class="servant-status-skill-btn-ico">
+                                        <img>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="servant-status-info">
+                                <div class="servant-status-info-class">
+                                    <div class="servant-status-info-class-img">
+                                    </div>
+                                    <div class="servant-status-info-class-name">
+                                    </div>
+                                </div>
+                                <div class="servant-status-info-hpnplvname">
+                                    <div class="servant-status-info-hp">
+                                    </div>
+                                    <div class="servant-status-info-np">
+                                    </div>
+                                    <div class="servant-status-info-lvname">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            */
+            /********************** servant css **********************************/
+            /********************** enemy css **********************************/
+            .game-container > .scene > .enemy-queue {
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 40%;
+                height: 62.5%;
+                z-index: 100;
+            }
+            .game-container > .scene > .enemy-queue > .enemy-sprite {
+                display: inline-block;
+                position: absolute;
+            }
+            .game-container > .scene > .enemy-queue > .enemy-sprite > img.enemy-sprite-img {
+                position: relative;
+                display: inline-block;
+                height: 100%;
+            }
+            .game-container > .scene > .enemy-status-area {
+                position: absolute;
+            }
+            /********************** enemy css **********************************/
+            .game-container .btn {
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select:none;
+                user-select:none;
+                -o-user-select:none;
+            }
+            .game-container > #show_width {
+                display: none;
+                position: absolute;
+                background-color: chartreuse;
+                width: 100%;
+                bottom: 0;
+                z-index: 9999;
             }
             
-            .allies-control-panel {
-                display: block;
+            /* mobile first css */
+            /* 直向 */
+            @media only screen and (orientation: portrait){
+                .game-container {
+                    /* keep 16:9 */
+                    width: 100vw;
+                    height: 56.25vw;
+                }
+                .game-container > .scene {
+                    
+                }
+                
+                #game_example {
+                    /* keep 16:9 */
+                    width: 100vw;
+                    height: 56.25vw;
+                }
             }
-            .allies-control-panel row {
-                display: inline-block;
+            /* 橫向 */
+            @media only screen and (orientation: landscape) {
+                .game-container {
+                    /* keep 16:9 */
+                    width: 177.77vh;
+                    height: 100vh;
+                }
+                .game-container > .scene {
+                    
+                }
+                #game_example {
+                    /* keep 16:9 */
+                    width: 177.77vh;
+                    height: 100vh;
+                }
+                
+                /************************************************/
+                /* 橫向且全螢幕時 */
+                /* 針對18:9以上裝置延展畫面 */
+                .game-container:-moz-full-screen {
+                    width: 100vw;
+                    height: 100vh;
+                }
+                .game-container:-webkit-full-screen {
+                    width: 100vw;
+                    height: 100vh;
+                }
+                .game-container:fullscreen {
+                    width: 100vw;
+                    height: 100vh;
+                }
+                /******************** servant css **********************************/
+                .game-container:-moz-full-screen > .scene > .servant-queue {
+                    width: calc(177.77vh * 0.4);
+                    right: initial;
+                    left: 60%
+                }
+                .game-container:-webkit-full-screen > .scene > .servant-queue {
+                    width: calc(177.77vh * 0.4);
+                    right: initial;
+                    left: 60%
+                }
+                .game-container:fullscreen > .scene > .servant-queue {
+                    width: calc(177.77vh * 0.4);
+                    right: initial;
+                    left: 60%
+                }
+                .game-container:-moz-full-screen > .scene > .servant-status-area {
+                    width: calc(177.77vh * 0.75);
+                }
+                .game-container:-webkit-full-screen > .scene > .servant-status-area {
+                    width: calc(177.77vh * 0.75);
+                }
+                .game-container:fullscreen > .scene > .servant-status-area {
+                    width: calc(177.77vh * 0.75);
+                }
+                /******************** servant css **********************************/
+                /******************** enemy css **********************************/
+                .game-container:-moz-full-screen > .scene > .enemy-queue {
+                    width: calc(177.77vh * 0.4);
+                    left: initial;
+                    right: 60%;
+                }
+                .game-container:-webkit-full-screen > .scene > .enemy-queue {
+                    width: calc(177.77vh * 0.4);
+                    left: initial;
+                    right: 60%;
+                }
+                .game-container:fullscreen > .scene > .enemy-queue {
+                    width: calc(177.77vh * 0.4);
+                    left: initial;
+                    right: 60%;
+                }
+                /******************** enemy css **********************************/
+                .game-container:-moz-full-screen > #show_width {
+                    background-color: red;
+                }
+                .game-container:-webkit-full-screen > #show_width {
+                    background-color: orange;
+                }
+                .game-container:fullscreen > #show_width {
+                    background-color: yellow;
+                }
+            }
+            /*Web App (主畫面啟動)(Android?)*/
+            @media only screen and (display-mode: fullscreen) and (orientation: landscape) {
+                /* hide everything without game-container */
+                body >.content >:not(.game-container), body>:not(.content) {
+                    /*display: none;*/
+                }
+                /* 針對18:9以上裝置延展畫面 */
+                .game-container {
+                    width: 100vw;
+                    height: 100vh;
+                }
+                /********************* servant css **************************/
+                .game-container > .scene > .servant-queue {
+                    width: calc(177.77vh * 0.4);
+                    right: initial;
+                    left: 60%
+                }
+                .game-container > .scene > .servant-status-area {
+                    width: calc(177.77vh * 0.75);
+                }
+                /********************* servant css **************************/
+                /********************* enemy css **************************/
+                .game-container > .scene > .enemy-queue {
+                    width: calc(177.77vh * 0.4);
+                    left: initial;
+                    right: 60%;
+                }
+                /********************* enemy css **************************/
+                .game-container > #show_width {
+                    background-color: blue;
+                }
+            }
+            
+            /* override when desktop */
+            @media only screen and (min-width: 849px) {
+                .game-container {
+                    width: 848px;
+                    height: 480px;
+                }
+                .game-container > #show_width {
+                    background-color: hotpink;
+                }
             }
         </style>
     </head>
     
     <body>
-        <div class="container">
-            <!------------------- game container start ------------------------->
-            <div class="game-container">
+        <div class="content">
+            <!-- game container start -->
+            <div id="main" class="game-container">
                 <div class="scene battle-scene">
-                    <div class="battle-bg">
-                        <img src="/fgo/img/grassland.jpg" style="width: 848px; height:480px">
+                    <div class="scene-bg">
+                        <img class="scene-bg-img" src="/fgo/img/grassland.jpg">
                     </div>
                     <!-- 敵人顯示區 -->
                     <div class="enemy-queue">
@@ -539,15 +962,14 @@
                         </div>
                         -->
                     </div>
-                    
-                    
                 </div>
+                <div id="show_width"></div>
             </div>
-            <!------------------- game container finish ------------------------->
+            <!-- game container finish -->
             
             
             <br>
-            <!---------------------------------  控制台 Control panel ------------------------------------------->
+            <!-- 控制台 Control panel -->
             <div class="control-panel">
                 <div class="allies-control-panel">
                     <div class="row">
@@ -557,7 +979,7 @@
                             <option value="ch">正體中文</option>
                             <option value="en">English</option>
                         </select>
-                        
+                        <br>
                         <span>Servant 1:</span>
                         <select id="setting_servant1_select" onchange="setServantToQueue(this.value,1)">
                         
@@ -573,12 +995,11 @@
                         
                         </select>
                     </div>
+                    <input id="enter_fullscreen_btn" type="button" value="Fullscreen">
                 </div>
             </div>
             <br><br>
-            <div class="battle-bg">
-                <img src="../img/ss_test.png" style="width:848; height:auto">
-            </div>
+            <img id="game_example" src="../img/ss_test.png">
         </div>
         <p id="servant_name"></p>
     </body>

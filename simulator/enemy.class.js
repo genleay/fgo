@@ -16,8 +16,9 @@ class Enemy{
         
         this.getSetting = function(){
             return {
-                getBattleServantSprite: function(){
+                getBattleEnemySprite: function(){
                     return {
+                        getFilename: function(){ return enemy_json['enemy']['setting']['image']['battle']['servant-sprite']['filename']; },
                         getHeight: function(){ return enemy_json['enemy']['setting']['image']['battle']['servant-sprite']['height']; },
                         getGroundPoint: function(){ return enemy_json['enemy']['setting']['image']['battle']['servant-sprite']['ground-point']; }
                     };
